@@ -31,7 +31,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "export PORT=3001 && craco start",
+    "start": "cross-env PORT=3001 && craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
@@ -61,6 +61,7 @@
     "@types/react-json-to-csv": "^1.2.2",
     "babel-jest": "^29.7.0",
     "craco-alias": "^3.0.1",
+    "cross-env": "^7.0.3",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "prettier": "^3.0.2"
