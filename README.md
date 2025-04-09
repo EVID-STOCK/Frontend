@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+<div align="center">
+<h1>EVID-STOCK</h1>
+<h3>주식에 대해 잘 모르는 사람들도 게임을 통해 손쉽게 배울 수 있는 모의 주식 투자 서비스</h3>
+<br />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+<div align="left">
+<h2>시연 영상</h2>
+<h3>방장 페이지</h3>
+<table>
+  <tr>
+    <td colspan="2" align="center">
+      <img width="80%" src="https://github.com/user-attachments/assets/63dea51d-b136-4a8e-9ad5-2e8db1942133"/>
+      <br/>
+      <sub>게임방 생성 및 게임 시작</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img width="100%" src="https://github.com/user-attachments/assets/4e33c5b8-8dff-44d5-a046-b578c4a32d20"/>
+      <br/>
+      <sub>게임 결과</sub>
+    </td>
+    <td align="center">
+      <img width="100%" src="https://github.com/user-attachments/assets/031ca581-99ec-4c13-9339-8ef422d19806"/>
+      <br/>
+      <sub>게임 결과 excel 파일 저장</sub>
+    </td>
+  </tr>
+</table>
 
-In the project directory, you can run:
+<br />
 
-### `npm start`
+  <h3>참여자 페이지</h3>
+<table>
+  <tr>
+    <td align="center">
+      <img width="100%" src="https://github.com/user-attachments/assets/b90d71eb-1438-4ee1-8aa6-72a5a18205e5"/><br/>
+      <sub>게임방 접속</sub>
+    </td>
+    <td align="center">
+      <img width="100%" src="https://github.com/user-attachments/assets/a15a54d6-f423-47d3-8251-f9cbcba53373"/><br/>
+      <sub>주가 변동 그래프</sub>
+    </td>
+    <td align="center">
+      <img width="100%" src="https://github.com/user-attachments/assets/d0951377-52f7-4029-ba6e-dac301bf92c0"/><br/>
+      <sub>주식 매수</sub>
+    </td>
+    <td align="center">
+      <img width="100%" src="https://github.com/user-attachments/assets/03acc112-264b-43ae-8fc0-e373a2607ec1"/><br/>
+      <sub>주식 매도</sub>
+    </td>
+  </tr>
+</table>
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  </div>
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+</div>
