@@ -1,70 +1,6 @@
-import React from 'react';
-import { styled } from 'styled-components';
-import Header_ from '@components/common/header';
-import Footer from '@components/common/footer';
+import styled from 'styled-components';
 
-function About() {
-  return (
-    <AboutLayout>
-      <Header_ />
-      <BackgroundImage src="/images/mainBackgroundImage.svg" />
-      <Main>
-        <TeamBox>
-          <img src="/images/evidLogo.svg" />
-          <h3>뛰어들고 부딪히고 튀어오릅니다.</h3>
-          <p>
-            EVID는 새로운 경험을 추구하는 경험하는 크루입니다. <br />
-            소수 정예로 뭉친 저희는 늘 새롭고 재미난 아이템을 탐하고 연구합니다.
-            <br />
-            때로는 성장을 위해, 성공을 위해, 경험을 위해 앞으로 EVID는 계속해서{' '}
-            <br />
-            새로움에 뛰어들고 튀어오를 것입니다.
-          </p>
-        </TeamBox>
-        <IntroductionBox>
-          <TeamIntroduction>
-            <h3>팀 소개</h3>
-            <p>
-              팀 EVID는 클라이언트의 고유한 비전과 요구사항을 핵심으로 웹 개발을
-              실현합니다. 저희는 프로젝트를 세심하게 계획하고 디자인하여,
-              혁신적이고 독창적인 결과물을 창출합니다. 저희와 함께 협력하여 웹의
-              가능성을 극대화하세요.
-            </p>
-          </TeamIntroduction>
-          <Statistics>
-            <h3>끊임 없는 도전의 시작</h3>
-            <div>
-              <ListBox>
-                <div>
-                  <label htmlFor="year">개설연도</label>
-                  <p id="year">2023년</p>
-                </div>
-                <div>
-                  <label htmlFor="users">사용자 수</label>
-                  <p id="users">36명</p>
-                </div>
-              </ListBox>
-              <ListBox>
-                <div>
-                  <label htmlFor="members">멤버 수</label>
-                  <p id="members">5명</p>
-                </div>
-                <div>
-                  <label htmlFor="services">서비스 수</label>
-                  <p id="services">1개</p>
-                </div>
-              </ListBox>
-            </div>
-          </Statistics>
-        </IntroductionBox>
-      </Main>
-      <img src="/images/evidBackgroundLogo.svg" />
-      <Footer />
-    </AboutLayout>
-  );
-}
-
-const AboutLayout = styled.div`
+export const AboutContainer = styled.div`
   width: 100%;
   height: auto;
   min-height: 100vh;
@@ -90,7 +26,7 @@ const AboutLayout = styled.div`
   }
 `;
 
-const BackgroundImage = styled.img`
+export const BackgroundImage = styled.img`
   width: 100%;
   position: absolute;
   top: 550px;
@@ -98,7 +34,7 @@ const BackgroundImage = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-const Main = styled.main`
+export const Main = styled.main`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -115,7 +51,7 @@ const Main = styled.main`
   }
 `;
 
-const TeamBox = styled.div`
+export const TeamWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,7 +108,7 @@ const TeamBox = styled.div`
   }
 `;
 
-const IntroductionBox = styled.div`
+export const IntroductionWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -189,7 +125,7 @@ const IntroductionBox = styled.div`
   }
 `;
 
-const TeamIntroduction = styled.div`
+export const TeamIntroduction = styled.div`
   display: flex;
   flex-direction: column;
   gap: 96px;
@@ -240,7 +176,7 @@ const TeamIntroduction = styled.div`
   }
 `;
 
-const Statistics = styled.div`
+export const Statistics = styled.div`
   display: flex;
   flex-direction: column;
   color: #ffffff;
@@ -292,7 +228,7 @@ const Statistics = styled.div`
   }
 `;
 
-const ListBox = styled.div`
+export const ListWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -323,5 +259,3 @@ const ListBox = styled.div`
     }
   }
 `;
-
-export default About;
