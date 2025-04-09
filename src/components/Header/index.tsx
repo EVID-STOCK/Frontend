@@ -2,26 +2,22 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-function Header_() {
+function Header() {
   return (
-    <HeaderLayout>
-      <Header>
-        <img src="/images/signatureLogo.svg" />
-        <Navbar>
-          <Link to="/">HOME</Link>
-          <Link to="/about">ABOUT</Link>
-          <Link to="/contact">CONTACT</Link>
-        </Navbar>
-      </Header>
-    </HeaderLayout>
+    <HeaderContainer>
+      <img src="/images/signatureLogo.svg" />
+      <Navbar>
+        <Link to="/">HOME</Link>
+        <Link to="/about">ABOUT</Link>
+        <Link to="/contact">CONTACT</Link>
+      </Navbar>
+    </HeaderContainer>
   );
 }
 
-const HeaderLayout = styled.header`
-  width: 100%;
-`;
+export default React.memo(Header);
 
-const Header = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -71,5 +67,3 @@ const Navbar = styled.nav`
     }
   }
 `;
-
-export default Header_;
