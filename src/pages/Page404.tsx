@@ -1,18 +1,17 @@
-import React from 'react';
 import { styled } from 'styled-components';
 
-function ErrorPage() {
+export default function Page404() {
   return (
-    <UnusualApproachLayout>
+    <Page404Layout>
       <img src="/images/errorImage.png" />
       <h1>404</h1>
       <p>페이지가 존재하지 않습니다</p>
       <p>올바른 링크를 다시 입력해보세요</p>
-    </UnusualApproachLayout>
+    </Page404Layout>
   );
 }
 
-const UnusualApproachLayout = styled.header`
+const Page404Layout = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,5 +71,3 @@ const UnusualApproachLayout = styled.header`
     }
   }
 `;
-
-export default ErrorPage;

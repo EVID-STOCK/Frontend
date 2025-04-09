@@ -13,6 +13,9 @@ import Page404 from '@pages/Page404';
 import { StompProvider } from '@contexts/SocketContext';
 import Enter from '@pages/Enter';
 import Home from '@pages/Home';
+import HostProtectedRoutes from '@utils/HostProtectedRoutes';
+import ParticipantProtectedRoutes from '@utils/ParticipantProtectedRoutes';
+import ErrorBoundaryWrapper from '@utils/ErrorBoundaryWrapper';
 
 function App() {
   return (
@@ -29,12 +32,18 @@ function App() {
             <Route path="/host" element={<HostHome />} />
             <Route path="/participant" element={<ParticipantHome />} />
 
-            <Route path="/host/room/wait" element={<GameLobby />} />
-            <Route path="/host/room/result" element={<GameResult />} />
+            <Route element={<HostProtectedRoutes />}>
+              <Route path="/host/room/wait" element={<GameLobby />} />
+              <Route path="/host/room/result" element={<GameResult />} />
+            </Route>
 
-            <Route path="/participant/wallet" element={<Dashboard />} />
-            <Route path="/participant/purchase" element={<Buy />} />
-            <Route path="/participant/sell" element={<Sell />} />
+            <Route element={<ErrorBoundaryWrapper />}>
+              <Route element={<ParticipantProtectedRoutes />}>
+                <Route path="/participant/wallet" element={<Dashboard />} />
+                <Route path="/participant/purchase" element={<Buy />} />
+                <Route path="/participant/sell" element={<Sell />} />
+              </Route>
+            </Route>
 
             <Route path={'*'} element={<Page404 />} />
           </Routes>
