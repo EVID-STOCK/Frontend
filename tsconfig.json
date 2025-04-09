@@ -9,7 +9,8 @@
       "@lib/*": ["lib/*"],
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],
-      "@states/*": ["states/*"]
+      "@states/*": ["states/*"],
+      "@contexts/*": ["contexts/*"]
     },
     "outDir": "./dist",
     "allowJs": true, // JS 파일 허용
