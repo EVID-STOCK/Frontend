@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RoomSet } from 'types/room';
 import { defaultInstance } from '../utils/instance';
 
 // 게임방 비밀번호 가져오기
@@ -7,27 +8,19 @@ export const getGameRoomPassword = async () => {
     const { data, status } = await defaultInstance.post(`/rooms`);
     return { data, status };
   } catch (e: any) {
-    if (e.code === 'ERR_NETWORK') {
+    if (e.response) {
+      return e.response.data;
+    } else {
       return {
-        status: 503,
-        error: '네트워크 에러발생',
+        status: null,
+        message: '서버에 연결할 수 없습니다.',
       };
     }
-    return {
-      status: e.response.status,
-      error: e.response.data.error,
-    };
   }
 };
 
-interface RoomInfo {
-  round_num: number;
-  time_limit: number;
-  seed: number;
-}
-
 // 게임방 정보 업데이트하기
-export const updateRoomInfo = async (roomPW: string, roomInfo: RoomInfo) => {
+export const updateRoomInfo = async (roomPW: string, roomInfo: RoomSet) => {
   try {
     const { data, status } = await defaultInstance.put(
       `/rooms/${roomPW}`,
@@ -35,16 +28,33 @@ export const updateRoomInfo = async (roomPW: string, roomInfo: RoomInfo) => {
     );
     return { data, status };
   } catch (e: any) {
-    if (e.code === 'ERR_NETWORK') {
+    if (e.response) {
+      return e.response.data;
+    } else {
       return {
-        status: 503,
-        error: '네트워크 에러발생',
+        status: null,
+        message: '서버에 연결할 수 없습니다.',
       };
     }
-    return {
-      status: e.response.status,
-      error: e.response.data.error,
-    };
+  }
+};
+
+// 게임방 정보 가져오기
+export const fetchRoomInfo = async (roomPW: string) => {
+  try {
+    const { data, status } = await defaultInstance.get(
+      `/rooms/${roomPW}/setting`
+    );
+    return { data, status };
+  } catch (e: any) {
+    if (e.response) {
+      return e.response.data;
+    } else {
+      return {
+        status: null,
+        message: '서버에 연결할 수 없습니다.',
+      };
+    }
   }
 };
 
@@ -54,22 +64,20 @@ export const deleteGameRoom = async (roomPW: string) => {
     const { data, status } = await defaultInstance.delete(`/rooms/${roomPW}`);
     return { data, status };
   } catch (e: any) {
-    if (e.code === 'ERR_NETWORK') {
+    if (e.response) {
+      return e.response.data;
+    } else {
       return {
-        status: 503,
-        error: '네트워크 에러발생',
+        status: null,
+        message: '서버에 연결할 수 없습니다.',
       };
     }
-    return {
-      status: e.response.status,
-      error: e.response.data.error,
-    };
   }
 };
 
 interface StudentInfo {
-  name: string; // 이름
-  profile_num: number; // 프로필
+  userName: string; // 이름
+  profileNum: number; // 프로필
 }
 
 // 학생들 정보 생성 후 게임방에 참여시키기
@@ -84,16 +92,14 @@ export const participateGameRoom = async (
     );
     return { data, status };
   } catch (e: any) {
-    if (e.code === 'ERR_NETWORK') {
+    if (e.response) {
+      return e.response.data;
+    } else {
       return {
-        status: 503,
-        error: '네트워크 에러발생',
+        status: null,
+        message: '서버에 연결할 수 없습니다.',
       };
     }
-    return {
-      status: e.response.status,
-      error: e.response.data.error,
-    };
   }
 };
 
@@ -103,35 +109,31 @@ export const leaveGameRoom = async (roomPW: string) => {
     const { data, status } = await defaultInstance.delete(`/users/${roomPW}`);
     return { data, status };
   } catch (e: any) {
-    if (e.code === 'ERR_NETWORK') {
+    if (e.response) {
+      return e.response.data;
+    } else {
       return {
-        status: 503,
-        error: '네트워크 에러발생',
+        status: null,
+        message: '서버에 연결할 수 없습니다.',
       };
     }
-    return {
-      status: e.response.status,
-      error: e.response.data.error,
-    };
   }
 };
 
 // 게임방 다음 라운드로 넘어가기
-export const goNextRound = async (roomPW: string) => {
+export const updateNextRound = async (roomPW: string) => {
   try {
-    const { data, status } = await defaultInstance.put(`/rooms/${roomPW}/next`);
+    const { data, status } = await defaultInstance.put(`/games/${roomPW}/next`);
     return { data, status };
   } catch (e: any) {
-    if (e.code === 'ERR_NETWORK') {
+    if (e.response) {
+      return e.response.data;
+    } else {
       return {
-        status: 503,
-        error: '네트워크 에러발생',
+        status: null,
+        message: '서버에 연결할 수 없습니다.',
       };
     }
-    return {
-      status: e.response.status,
-      error: e.response.data.error,
-    };
   }
 };
 
@@ -143,45 +145,40 @@ export const checkGameResult = async (
 ) => {
   try {
     const { data, status } = await defaultInstance.get(
-      `/rooms/${roomPW}/result?round=${round}&opt=${opt}`
+      `/games/${roomPW}/result?round=${round}&opt=${opt}`
     );
     return { data, status };
   } catch (e: any) {
-    if (e.code === 'ERR_NETWORK') {
+    if (e.response) {
+      return e.response.data;
+    } else {
       return {
-        status: 503,
-        error: '네트워크 에러발생',
+        status: null,
+        message: '서버에 연결할 수 없습니다.',
       };
     }
-    return {
-      status: e.response.status,
-      error: e.response.data.error,
-    };
   }
 };
 
-interface SaveGameResult {
-  round_num: number;
-}
-
 // 게임 결과 저장하기
-export const saveGameResult = async (roomPW: string, round: SaveGameResult) => {
+export const postGameResult = async (
+  roomPW: string,
+  round: { round_num: number }
+) => {
   try {
     const { data, status } = await defaultInstance.post(
-      `/rooms/${roomPW}/result`,
+      `/games/${roomPW}/result`,
       round
     );
     return { data, status };
   } catch (e: any) {
-    if (e.code === 'ERR_NETWORK') {
+    if (e.response) {
+      return e.response.data;
+    } else {
       return {
-        status: 503,
-        error: '네트워크 에러발생',
+        status: null,
+        message: '서버에 연결할 수 없습니다.',
       };
     }
-    return {
-      status: e.response.status,
-      error: e.response.data.error,
-    };
   }
 };
