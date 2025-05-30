@@ -28,18 +28,10 @@ function Purchase() {
 
   const handleClickPurchaseButton = useCallback(async () => {
     try {
-      if (purchaseStock.length === 0) {
-        throw new PurchaseError('몇 주를 살지 입력해주세요.', 'NO_STOCK_INPUT');
-      }
-      if (!notice.available) {
-        throw new PurchaseError('잔액이 부족합니다.', 'NO_ASSET');
-      }
-      if (!companyStock.id) {
-        throw new PurchaseError('오류가 발생했습니다.', 'NO_COMPANY');
-      }
-      if (!roomCode) {
-        throw new PurchaseError('존재하지 않는 방입니다.', 'NO_ROOM');
-      }
+      if (purchaseStock.length === 0) throw new PurchaseError('NO_STOCK_INPUT');
+      if (!notice.available) throw new PurchaseError('NO_ASSET');
+      if (!companyStock.id) throw new PurchaseError('NO_COMPANY');
+      if (!roomCode) throw new PurchaseError('NO_ROOM');
 
       mutate({
         stockId: companyStock.id,
