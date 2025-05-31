@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import * as S from './styles';
 import Header from '@components/Header';
 import { Student } from 'types/room';
@@ -8,20 +8,17 @@ import RoomSetting from './RoomSetting';
 import ModalLayout from './components/ModalLayout';
 import { useLocation } from 'react-router-dom';
 import useModalState from '@hooks/useModalState';
-import { useSocket } from '@contexts/SocketContext';
-import { useSetRecoilState } from 'recoil';
-import { roomCodeState } from '@states/host/roomSetState';
 import RoundModal from './components/RoundModal';
 import SocketLoading from '@components/SocketLoading';
 import GameStartButton from './components/GameStartButton';
+import { useSocket } from '@contexts/SocketContext';
 
 export default function GameLobby() {
   const { state } = useLocation();
   const pwRef = useRef<HTMLDivElement>(null);
-  const { socket, sendMessage, isConnect } = useSocket();
+  const { isConnect } = useSocket();
   const [participants, setParticipants] = useState<Student[]>([]);
   const { openModal, closeModal, state: modalState, isOpen } = useModalState();
-  const setRoomCode = useSetRecoilState(roomCodeState);
 
   const handleClickModalBackground = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -38,13 +35,6 @@ export default function GameLobby() {
   const handleClickPasswordButton = () => {
     openModal('hostGameModal', 'password');
   };
-
-  useEffect(() => {
-    if (state?.roomPW && socket) {
-      setRoomCode(state.roomPW);
-      sendMessage('/app/room/connect', { roomCode: state.roomPW });
-    }
-  }, [state, socket]);
 
   return (
     <S.GameLobbyContainer>
