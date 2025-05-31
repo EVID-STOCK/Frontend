@@ -55,6 +55,7 @@ export const StompProvider = ({ children }: { children: ReactNode }) => {
     };
     client.current.onStompError = (frame) => {
       console.error('Socket Connect Error:', frame.headers['message']);
+      setIsConnected(false);
     };
 
     client.current.activate();

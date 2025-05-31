@@ -19,10 +19,11 @@ function RoomParticipant({
   participants: Student[];
   setParticipants: React.Dispatch<React.SetStateAction<Student[]>>;
 }) {
-  const { subscribe } = useSocket();
+  const { subscribe, sendMessage, isConnect } = useSocket();
   const { state } = useLocation();
 
   useEffect(() => {
+    if (!state?.roomPW || !isConnect) return;
     const handleUpdateParticipants = (message: Message) => {
       if (!message.status) {
         setParticipants(message.participants as Student[]);
@@ -33,7 +34,8 @@ function RoomParticipant({
       `/topic/room/participants/${state.roomPW}`,
       handleUpdateParticipants
     );
-  }, [state.roomPW]);
+    sendMessage('/app/room/participants', { roomCode: state.roomPW });
+  }, [state.roomPW, isConnect]);
 
   return (
     <ListLayout title="참여인원" src="/icons/participant_icon.svg">
