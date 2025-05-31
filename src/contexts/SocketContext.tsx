@@ -23,7 +23,7 @@ interface StompContextType {
 const StompContext = createContext<StompContextType | null>(null);
 
 export const StompProvider = ({ children }: { children: ReactNode }) => {
-  const url = `${process.env.REACT_APP_BackEndUrl}/ws`;
+  const url = `${import.meta.env.VITE_BackEndUrl}/ws`;
   const roomCode = useRecoilValue(roomCodeState);
   const client = useRef<Client | null>(null);
   const [isConnect, setIsConnected] = useState(false);

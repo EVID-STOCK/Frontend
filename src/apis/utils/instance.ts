@@ -1,7 +1,7 @@
 import { defaultAlert, networkErrorAlert } from '@utils/customAlert';
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_BackEndUrl + '/api';
+const BASE_URL = import.meta.env.VITE_BackEndUrl + '/api';
 
 const defaultApi = axios.create({
   baseURL: BASE_URL,

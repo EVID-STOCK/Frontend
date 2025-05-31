@@ -10,7 +10,9 @@
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],
       "@states/*": ["states/*"],
-      "@contexts/*": ["contexts/*"]
+      "@contexts/*": ["contexts/*"],
+      "@styles/*": ["styles/*"],
+      "@errors/*": ["errors/*"]
     },
     "outDir": "./dist",
     "allowJs": true, // JS 파일 허용
@@ -19,14 +21,14 @@
     "target": "es2016",
     "lib": ["dom", "dom.iterable", "esnext", "ES2016"],
     "jsx": "react-jsx",
-    "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": false, // 파일명 변경했을 때 오류 해결하기 위해 true -> false
     "strict": true,
     "noUnusedParameters": true,
     "skipLibCheck": true
-  },
-  "extends": "./tsconfig.paths.json"
+  }
   // "include": ["./src"],
   // "exclude": ["node_modules", "build"]
 }

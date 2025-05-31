@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { rotatedImage } from 'styles/animation';
+import { rotatedImage } from '@styles/animation';
 
 export default function SocketLoading() {
   const { state } = useLocation();

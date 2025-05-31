@@ -11,7 +11,7 @@ import Keypad from '../components/Keypad';
 import * as S from './styles';
 import ActionButton from '../components/ActionButton';
 import { NoticeAlert } from '@utils/customAlert';
-import { SellError } from 'errors/SellError';
+import { SellError } from '@errors/SellError';
 
 function Sell() {
   const [sellStock, setSellStock] = useState<string>('');

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { rotatedImage } from 'styles/animation';
+import { rotatedImage } from '@styles/animation';
 
 export const ProgressModalConatiner = styled.div`
   display: flex;

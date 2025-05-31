@@ -7,7 +7,7 @@ import Header from '../components/ParticipantHeader';
 import Keypad from '../components/Keypad';
 import { useUser } from '@hooks/useUserQuery';
 import ActionButton from '../components/ActionButton';
-import { PurchaseError } from 'errors/PurchaseError';
+import { PurchaseError } from '@errors/PurchaseError';
 import * as S from './styles';
 import { usePurchaseStockQuery } from '@hooks/usePurchaseStockQuery';
 import useSlidingPanel from '@hooks/useSlidingPanel';
