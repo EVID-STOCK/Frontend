@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Footer from '@components/Footer';
-import { deleteGameRoom, getGameRoomPassword } from '@apis/api/game';
+import { deleteGameRoom } from '@apis/api/game';
 import {
   currentRoundState,
   gameResultConditionState,
@@ -12,21 +11,15 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import * as S from './styles';
 import UserProfile from '@components/UserProfile';
 import { modalState } from '@states/participant/modalState';
+import CreateRoomButton from './components/CreateRoomButton';
 
 function HostHome() {
-  const navigate = useNavigate();
   const resetResultCondition = useResetRecoilState(gameResultConditionState);
   const resetRoomSet = useResetRecoilState(roomSetState);
   const resetcurrentRound = useResetRecoilState(currentRoundState);
   const resetModals = useResetRecoilState(modalState);
   const roomCode = useRecoilValue(roomCodeState);
 
-  const onClickCreateRoomButton = async () => {
-    const roomPW = await getGameRoomPassword();
-    if (roomPW.status === 200) {
-      navigate('/host/room/wait', { state: { roomPW: roomPW.data.roomCode } });
-    }
-  };
   const deleteRoom = async () => {
     if (!roomCode) return;
     await deleteGameRoom(roomCode);
@@ -57,12 +50,7 @@ function HostHome() {
           <br />
           모의주식 서비스 E - STOCK 입니다.
         </p>
-        <S.CreateRoomBtn onClick={onClickCreateRoomButton}>
-          <div>
-            <img src="/icons/add_icon.svg" alt="방만들기 아이콘" />
-            <p>Create New Room</p>
-          </div>
-        </S.CreateRoomBtn>
+        <CreateRoomButton />
       </S.Main>
       <Footer />
     </S.HomeContainer>
