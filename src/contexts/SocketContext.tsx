@@ -18,6 +18,7 @@ interface StompContextType {
   subscribe: (topic: string, callback: (message: any) => void) => void;
   unsubscribe: (topic: string) => void;
   isConnect: boolean;
+  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const StompContext = createContext<StompContextType | null>(null);
@@ -110,6 +111,7 @@ export const StompProvider = ({ children }: { children: ReactNode }) => {
         subscribe,
         unsubscribe,
         isConnect,
+        setIsConnected,
       }}
     >
       {children}

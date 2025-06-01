@@ -1,13 +1,20 @@
 import styled from 'styled-components';
 import { getGameRoomPassword } from '@apis/api/game';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { roomCodeState } from '@states/host/roomSetState';
+import { useSocket } from '@contexts/SocketContext';
 
 function CreateRoomButton() {
   const navigate = useNavigate();
+  const setRoomCode = useSetRecoilState(roomCodeState); // 전역 변수 방코드
+  const { setIsConnected } = useSocket();
 
   const onClickCreateRoomButton = async () => {
     const roomPW = await getGameRoomPassword();
     if (roomPW.status === 200) {
+      setIsConnected(true);
+      setRoomCode(roomPW.data.roomCode);
       navigate('/host/room/wait', { state: { roomPW: roomPW.data.roomCode } });
     }
   };
