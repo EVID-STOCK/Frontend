@@ -21,7 +21,7 @@ function CreateRoomButton() {
 
   return (
     <CreateRoomButtonWrapper onClick={onClickCreateRoomButton}>
-      <img src="/icons/add_icon.svg" alt="방만들기 아이콘" />
+      <img src="/icons/add-icon.svg" alt="방만들기 아이콘" />
       <p>Create New Room</p>
     </CreateRoomButtonWrapper>
   );

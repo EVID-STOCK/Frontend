@@ -8,13 +8,13 @@ function Profile() {
   return (
     <ProfileWrapper>
       {data?.user_info?.profile_num === 0 ? (
-        <img src="/images/defaultProfile-gray1.png" />
+        <img src="/images/profile-gray-1.png" />
       ) : null}
       {data?.user_info?.profile_num === 1 ? (
-        <img src="/images/defaultProfile-gray2.png" />
+        <img src="/images/profile-gray-2.png" />
       ) : null}
       {data?.user_info?.profile_num === 2 ? (
-        <img src="/images/defaultProfile-gray3.png" />
+        <img src="/images/profile-gray-3.png" />
       ) : null}
       <p>{data?.user_info?.username}</p>
     </ProfileWrapper>

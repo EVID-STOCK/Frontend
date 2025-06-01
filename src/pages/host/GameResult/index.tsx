@@ -115,7 +115,7 @@ function GameResult() {
     <S.GameResultContainer>
       <Header />
       <S.WaitingRoomList>
-        <ListLayout title="결과 조회" src="/icons/result_icon.svg">
+        <ListLayout title="결과 조회" src="/icons/result-icon.svg">
           <S.ListTitle>
             <h3>{round}라운드 랭킹</h3>
             <div>
@@ -150,13 +150,13 @@ function GameResult() {
                       <tr key={index}>
                         <td>
                           {student.profile_num === 0 ? (
-                            <S.Profile src="/images/defaultProfile-blue1.png" />
+                            <S.Profile src="/images/profile-blue-1.png" />
                           ) : null}
                           {student.profile_num === 1 ? (
-                            <S.Profile src="/images/defaultProfile-blue2.png" />
+                            <S.Profile src="/images/profile-blue-2.png" />
                           ) : null}
                           {student.profile_num === 2 ? (
-                            <S.Profile src="/images/defaultProfile-blue3.png" />
+                            <S.Profile src="/images/profile-blue-3.png" />
                           ) : null}
                           <p>{student.name}</p>
                         </td>

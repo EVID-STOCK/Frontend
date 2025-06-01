@@ -9,9 +9,9 @@ import { useSocket } from '@contexts/SocketContext';
 import * as S from './styles';
 
 const PROFILE_LIST: Record<number, string> = {
-  0: '/images/defaultProfile-blue1.png',
-  1: '/images/defaultProfile-blue2.png',
-  2: '/images/defaultProfile-blue3.png',
+  0: '/images/profile-blue-1.png',
+  1: '/images/profile-blue-2.png',
+  2: '/images/profile-blue-3.png',
 };
 
 interface UserFormProps {
@@ -130,7 +130,7 @@ export default function UserForm({
             onClick={handleProfileClick}
           />
           <img
-            src="/icons/modify-profile_icon.svg"
+            src="/icons/modify-profile-icon.svg"
             onClick={handleProfileClick}
           />
         </div>
@@ -150,7 +150,7 @@ export default function UserForm({
                 setName((prev) => ({ ...prev, value: e.target.value }));
               }}
             />
-            <img src="icons/edit_icon.svg" />
+            <img src="icons/edit-icon.svg" />
           </div>
           <button type="submit" hidden />
         </S.NameForm>

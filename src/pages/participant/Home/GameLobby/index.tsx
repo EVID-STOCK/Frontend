@@ -40,7 +40,7 @@ export default function ParticipantsGameLobby({
   return (
     <S.GameLobbyContainer>
       <div onClick={handleClickBackButton}>
-        <img src="icons/arrow-left-white_icon.svg" />
+        <img src="icons/arrow-left-icon.svg" />
       </div>
       <S.ParticipantListWrapper>
         <S.ListContainer>

@@ -44,7 +44,7 @@ function HostHome() {
       <UserProfile />
       {/* <S.BackgroundImage src="/images/mainBackgroundImage.svg" /> */}
       <S.Main>
-        <S.Logo src="/images/mainLogo.svg" />
+        <S.Logo src="/images/main-logo.svg" />
         <p>
           학생들도 주식에 쉽게 다가갈 수 있는
           <br />

@@ -8,9 +8,9 @@ export default function Home() {
   return (
     <HomeContainer>
       <Header />
-      <BackgroundImage src="/images/mainBackgroundImage.svg" />
+      <BackgroundImage src="/images/main-background-image.svg" />
       <Main>
-        <Logo src="/images/mainLogo.svg" />
+        <Logo src="/images/main-logo.svg" />
         <p>
           학생들도 주식에 쉽게 다가갈 수 있는
           <br />

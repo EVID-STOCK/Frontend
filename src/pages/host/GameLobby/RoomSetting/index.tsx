@@ -31,7 +31,7 @@ function RoomSetting() {
 
   return (
     <RoomSettingContainer>
-      <ListLayout title="방 설정" src="/icons/room_icon.svg">
+      <ListLayout title="방 설정" src="/icons/room-icon.svg">
         <ListContainer>
           <SelectList>
             <Select
@@ -76,7 +76,7 @@ function RoomSetting() {
               }
             />
           </SelectList>
-          <ListImage src="/images/roomsettingImage.svg" />
+          <ListImage src="/images/room-setting-image.svg" />
         </ListContainer>
       </ListLayout>
     </RoomSettingContainer>

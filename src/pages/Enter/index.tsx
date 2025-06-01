@@ -14,21 +14,18 @@ export default function Enter() {
   return (
     <S.EnterContainer>
       <S.LogoWrapper>
-        <img src="/images/signatureLogo.svg" />
+        <img src="/images/signature-logo.svg" />
       </S.LogoWrapper>
       <S.PlayerRoleSelector>
         <p>게임에서의 역할을 정해주세요</p>
         <S.SelectorWrapper>
           <S.RoleWrapper>
-            <img
-              src="/images/defaultProfile-blue1.png"
-              onClick={handleClickHost}
-            />
+            <img src="/images/profile-blue-1.png" onClick={handleClickHost} />
             <span>방장</span>
           </S.RoleWrapper>
           <S.RoleWrapper>
             <img
-              src="/images/defaultProfile-blue1.png"
+              src="/images/profile-blue-1.png"
               onClick={handleClickParticipant}
             />
             <span>참여자</span>

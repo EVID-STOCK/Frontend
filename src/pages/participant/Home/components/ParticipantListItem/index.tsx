@@ -9,9 +9,9 @@ export default function ParticipantListItem({
 }) {
   return (
     <ParticipantListItemWrapper>
-      {profile === 0 ? <img src="/images/defaultProfile-blue1.png" /> : null}
-      {profile === 1 ? <img src="/images/defaultProfile-blue2.png" /> : null}
-      {profile === 2 ? <img src="/images/defaultProfile-blue3.png" /> : null}
+      {profile === 0 ? <img src="/images/profile-blue-1.png" /> : null}
+      {profile === 1 ? <img src="/images/profile-blue-2.png" /> : null}
+      {profile === 2 ? <img src="/images/profile-blue-3.png" /> : null}
       <p>{userName}</p>
     </ParticipantListItemWrapper>
   );

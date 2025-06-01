@@ -12,7 +12,7 @@ function UnusualApproach() {
   return (
     <UnusualApproachContainer>
       <NoticeWrapper>
-        <img src="/icons/error_icon.png" />
+        <img src="/icons/error-icon.svg" />
         <p>
           비정상적인 접근입니다 <br />
           이전 페이지로 돌아가세요

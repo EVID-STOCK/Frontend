@@ -89,7 +89,7 @@ export default function Dashboard() {
     <S.DashboardContainer>
       <S.FinishModal $visible={isOpen('participantGameModal')}>
         <div>
-          <img src="/icons/loading_icon.png" />
+          <img src="/images/loading-image.png" />
           <p>{round}라운드 종료</p>
         </div>
       </S.FinishModal>

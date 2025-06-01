@@ -56,7 +56,7 @@ export const HeaderContainer = styled.header`
   margin: 0 auto;
 `;
 
-export const HeaderLogo = styled.div`
+export const HeaderWrapper = styled.div`
   margin-top: 4.2rem;
   padding: 2.5rem 0;
 `;

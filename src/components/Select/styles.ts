@@ -62,7 +62,7 @@ export const SelectBtn = styled.button<{ $visible: boolean }>`
     }
 
     // select 화살표
-    & > img {
+    & > svg {
       transform: rotate(${(props) => (props.$visible ? '180deg' : '0deg')});
       transition: all, 0.5s;
     }
@@ -72,7 +72,7 @@ export const SelectBtn = styled.button<{ $visible: boolean }>`
     & > div {
       font-size: 1.5rem;
 
-      & > img {
+      & > svg {
         width: 15px;
       }
     }

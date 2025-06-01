@@ -37,19 +37,19 @@ function ProfileSelector({
       </SlidingDoor>
       <Profiles>
         <img
-          src="/images/defaultProfile-gray1.png"
+          src="/images/profile-gray-1.png"
           onClick={() => {
             setSelectedProfile(0);
           }}
         />
         <img
-          src="/images/defaultProfile-gray2.png"
+          src="/images/profile-gray-2.png"
           onClick={() => {
             setSelectedProfile(1);
           }}
         />
         <img
-          src="/images/defaultProfile-gray3.png"
+          src="/images/profile-gray-3.png"
           onClick={() => {
             setSelectedProfile(2);
           }}

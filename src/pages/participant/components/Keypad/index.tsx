@@ -74,7 +74,7 @@ function Keypad({
             setStock((pre) => pre.slice(0, -1));
           }}
         >
-          <img src="/icons/delete_icon.svg" />
+          <img src="/icons/delete-icon.svg" />
         </button>
       </Line>
     </KeyPad>

@@ -8,7 +8,7 @@ export default function ProgressModal({ timer }: { timer: Timer }) {
 
   return (
     <S.ProgressModalConatiner>
-      <img src="/icons/loading_icon.png" />
+      <img src="/images/loading-image.png" />
       <div>
         <p>{round}라운드</p>
         <p>

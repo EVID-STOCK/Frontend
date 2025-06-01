@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Header() {
   return (
     <HeaderContainer>
-      <img src="/images/signatureLogo.svg" />
+      <img src="/images/signature-logo.svg" />
       <Navbar>
         <Link to="/">HOME</Link>
         <Link to="/about">ABOUT</Link>

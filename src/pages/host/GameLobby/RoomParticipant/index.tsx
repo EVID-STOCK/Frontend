@@ -38,20 +38,20 @@ function RoomParticipant({
   }, [state.roomPW, isConnect]);
 
   return (
-    <ListLayout title="참여인원" src="/icons/participant_icon.svg">
+    <ListLayout title="참여인원" src="/icons/participant-icon.svg">
       <S.ListContainer>
         <S.UserList>
           {participants.map((participant) => {
             return (
               <S.UserProfile key={uuidv4()}>
                 {participant.profileNum === 0 ? (
-                  <img src="/images/defaultProfile-blue1.png" />
+                  <img src="/images/profile-blue-1.png" />
                 ) : null}
                 {participant.profileNum === 1 ? (
-                  <img src="/images/defaultProfile-blue2.png" />
+                  <img src="/images/profile-blue-2.png" />
                 ) : null}
                 {participant.profileNum === 2 ? (
-                  <img src="/images/defaultProfile-blue3.png" />
+                  <img src="/images/profile-blue-3.png" />
                 ) : null}
                 <p>{participant.userName}</p>
               </S.UserProfile>
@@ -59,7 +59,7 @@ function RoomParticipant({
           })}
         </S.UserList>
       </S.ListContainer>
-      <S.ListImage src="/images/participantImage.svg" />
+      <S.ListImage src="/images/participant-image.svg" />
     </ListLayout>
   );
 }

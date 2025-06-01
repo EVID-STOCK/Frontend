@@ -38,7 +38,7 @@ export default function SocketLoading() {
         </ReconnectWrapper>
       ) : (
         <>
-          <img src="/icons/loading_icon.png" />
+          <img src="/images/loading-image.png" />
           <p>연결중입니다. 잠시만 기다려주세요</p>
         </>
       )}
@@ -72,7 +72,8 @@ const ReconnectWrapper = styled.div`
   margin-top: 0.5rem;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.8);
-  font-size: 2.5rem;
+  box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.25);
+  font-size: 2.2rem;
   padding: 2rem 10rem 2rem 10rem;
   display: flex;
   flex-direction: column;

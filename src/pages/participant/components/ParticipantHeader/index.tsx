@@ -18,9 +18,9 @@ function ParticipantHeader({ navbar }: ParticipantHeaderProps) {
 
   return (
     <S.HeaderContainer>
-      <S.HeaderLogo>
-        <img src="/images/headerLogo.svg" />
-      </S.HeaderLogo>
+      <S.HeaderWrapper>
+        <img src="/images/header-logo.svg" />
+      </S.HeaderWrapper>
 
       {navbar ? (
         <S.Navbar $state={slidingState} $selected={selectedNav}>
@@ -58,7 +58,7 @@ function ParticipantHeader({ navbar }: ParticipantHeaderProps) {
       ) : (
         <S.GoBackWrapper>
           <img
-            src="/icons/arrow-left_icon.svg"
+            src="/icons/arrow-left-icon.svg"
             onClick={() => {
               navigate(-1);
             }}

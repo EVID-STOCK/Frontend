@@ -6,9 +6,9 @@ function Contact() {
   return (
     <S.ContactContainer>
       <Header />
-      <S.BackgroundImage src="/images/mainBackgroundImage.svg" />
+      <S.BackgroundImage src="/images/main-background-image.svg" />
       <S.Main>
-        <S.Logo src="/images/evidLetterLogo.svg" />
+        <S.Logo src="/images/evid-letter-logo.svg" />
         <S.Info>
           <li>대표 : 황을선</li>
           <li>연락처 : +82)10-4665-0917</li>

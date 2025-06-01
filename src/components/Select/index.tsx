@@ -54,7 +54,7 @@ export default function Select({
         >
           <div>
             <p>{selected}</p>
-            <img src="/icons/select_icon.svg" />
+            <img src="/icons/select-icon.svg" />
           </div>
         </S.SelectBtn>
         <OptionList

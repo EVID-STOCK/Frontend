@@ -6,10 +6,10 @@ export default function About() {
   return (
     <S.AboutContainer>
       <Header />
-      <S.BackgroundImage src="/images/mainBackgroundImage.svg" />
+      <S.BackgroundImage src="/images/main-background-image.svg" />
       <S.Main>
         <S.TeamWrapper>
-          <img src="/images/evidLogo.svg" />
+          <img src="/images/evid-logo.svg" />
           <h3>뛰어들고 부딪히고 튀어오릅니다.</h3>
           <p>
             EVID는 새로운 경험을 추구하는 경험하는 크루입니다. <br />
@@ -57,7 +57,7 @@ export default function About() {
           </S.Statistics>
         </S.IntroductionWrapper>
       </S.Main>
-      <img src="/images/evidBackgroundLogo.svg" />
+      <img src="/images/evid-background-logo.svg" />
       <Footer />
     </S.AboutContainer>
   );

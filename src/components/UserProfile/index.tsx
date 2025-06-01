@@ -42,12 +42,12 @@ function UserProfile() {
     <UserProfileContainer>
       <UserProfileImage
         ref={profileImageRef}
-        src="/images/defaultProfile-blue1.png"
+        src="/images/profile-blue-1.png"
         onClick={handleClickProfile}
       />
       <ProfileDetailContainer ref={profileRef} $visible={visible}>
         <div>
-          <img src="/images/defaultProfile-blue1.png" />
+          <img src="/images/profile-blue-1.png" />
           <div>
             <span>현재 역할</span>
             <p>{role === 'host' ? '방장' : '참여자'}</p>
