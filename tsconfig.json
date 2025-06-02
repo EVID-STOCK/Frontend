@@ -12,7 +12,8 @@
       "@states/*": ["states/*"],
       "@contexts/*": ["contexts/*"],
       "@styles/*": ["styles/*"],
-      "@errors/*": ["errors/*"]
+      "@errors/*": ["errors/*"],
+      "@routes/*": ["routes/*"]
     },
     "outDir": "./dist",
     "allowJs": true, // JS 파일 허용

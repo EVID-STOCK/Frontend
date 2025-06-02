@@ -4,10 +4,17 @@ import * as S from './styles';
 export default function Enter() {
   const navigate = useNavigate();
   const handleClickHost = () => {
+    import('@pages/host/Home');
+    import('@pages/host/GameLobby');
+    import('@pages/host/GameResult');
     navigate('/host');
   };
 
   const handleClickParticipant = () => {
+    import('@pages/participant/Home');
+    import('@pages/participant/Dashboard');
+    import('@pages/participant/Buy');
+    import('@pages/participant/Sell');
     navigate('/participant');
   };
 

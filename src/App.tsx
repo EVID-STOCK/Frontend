@@ -1,21 +1,22 @@
 import GlobalStyle from '../src/styles/GlobalStyle';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HostHome from '@pages/host/Home';
-import GameLobby from '@pages/host/GameLobby';
-import GameResult from '@pages/host/GameResult';
-import Buy from '@pages/participant/Buy';
-import Sell from '@pages/participant/Sell';
-import Dashboard from '@pages/participant/Dashboard';
-import ParticipantHome from '@pages/participant/Home';
-import About from '@pages/About';
-import Contact from '@pages/Contact';
 import Page404 from '@pages/Page404';
 import { StompProvider } from '@contexts/SocketContext';
 import Enter from '@pages/Enter';
 import Home from '@pages/Home';
-import HostProtectedRoutes from '@utils/HostProtectedRoutes';
-import ParticipantProtectedRoutes from '@utils/ParticipantProtectedRoutes';
-import ErrorBoundaryWrapper from '@utils/ErrorBoundaryWrapper';
+import { lazy, Suspense } from 'react';
+import HostRoutes from '@routes/HostRoutes';
+import PariticipantRoutes from '@routes/ParticipantRoutes';
+import styled from 'styled-components';
+
+const About = lazy(() => import('@pages/About'));
+const Contact = lazy(() => import('@pages/Contact'));
+
+const Fallback = styled.section`
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(120deg, #3f51b5, #00bbd4 100%);
+`;
 
 function App() {
   return (
@@ -23,30 +24,17 @@ function App() {
       <GlobalStyle />
       <StompProvider>
         <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-
-            <Route path="/enter" element={<Enter />} />
-            <Route path="/host" element={<HostHome />} />
-            <Route path="/participant" element={<ParticipantHome />} />
-
-            <Route element={<HostProtectedRoutes />}>
-              <Route path="/host/room/wait" element={<GameLobby />} />
-              <Route path="/host/room/result" element={<GameResult />} />
-            </Route>
-
-            <Route element={<ErrorBoundaryWrapper />}>
-              <Route element={<ParticipantProtectedRoutes />}>
-                <Route path="/participant/wallet" element={<Dashboard />} />
-                <Route path="/participant/purchase" element={<Buy />} />
-                <Route path="/participant/sell" element={<Sell />} />
-              </Route>
-            </Route>
-
-            <Route path={'*'} element={<Page404 />} />
-          </Routes>
+          <Suspense fallback={<Fallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/enter" element={<Enter />} />
+              <Route path="/host/*" element={<HostRoutes />} />
+              <Route path="/participant/*" element={<PariticipantRoutes />} />
+              <Route path={'*'} element={<Page404 />} />
+            </Routes>
+          </Suspense>
         </Router>
       </StompProvider>
     </>
