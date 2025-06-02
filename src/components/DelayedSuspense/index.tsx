@@ -1,4 +1,7 @@
-import React, { useEffect, useState, ReactNode, Suspense } from 'react';
+import ErrorFallback from '@components/ErrorFallback';
+import { useEffect, useState, ReactNode, Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useQueryErrorResetBoundary } from 'react-query';
 
 interface DelayedSuspenseProps {
   fallback: ReactNode;
@@ -8,9 +11,10 @@ interface DelayedSuspenseProps {
 
 export const DelayedSuspense = ({
   fallback,
-  delay = 1000,
+  delay = 0,
   children,
 }: DelayedSuspenseProps) => {
+  const { reset } = useQueryErrorResetBoundary();
   const [showFallback, setShowFallback] = useState(false);
 
   useEffect(() => {
@@ -21,6 +25,8 @@ export const DelayedSuspense = ({
   }, [delay]);
 
   return (
-    <Suspense fallback={showFallback ? fallback : null}>{children}</Suspense>
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
+      <Suspense fallback={showFallback ? fallback : null}>{children}</Suspense>
+    </ErrorBoundary>
   );
 };

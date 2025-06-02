@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 import ActionButton from '@pages/participant/components/ActionButton';
+import { FallbackProps } from 'react-error-boundary';
 
-export default function ErrorFallback({ error, resetErrorBoundary }: any) {
-  console.log(error);
+export default function ErrorFallback({
+  error,
+  resetErrorBoundary,
+}: FallbackProps) {
+  console.error(error);
   return (
     <ErrorFallbackContainer role="alert">
       <div>
-        <img src="/images/errorImage-gray.png" />
+        <img src="/images/error-image-gray.png" />
         <p>
           앗, 로딩에 실패했어요. <br />
           다시 시도해주세요

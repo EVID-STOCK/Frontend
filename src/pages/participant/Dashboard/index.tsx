@@ -15,8 +15,9 @@ import Header from '../components/ParticipantHeader';
 import { useSocket } from '@contexts/SocketContext';
 import useModalState from '@hooks/useModalState';
 import useSlidingPanel from '@hooks/useSlidingPanel';
-import CustomSuspense from '@components/CustomSuspense';
 import * as S from './styles';
+import StockSkeleton from './Stock/components/StockSkeleton';
+import { DelayedSuspense } from '@components/DelayedSuspense';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ export default function Dashboard() {
       document.body.style.cssText = '';
       window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
     };
-  }, [isSlidingOpen, modalState('participantGameModal')]); //
+  }, [isSlidingOpen, modalState('participantGameModal')]);
 
   return (
     <S.DashboardContainer>
@@ -96,11 +97,17 @@ export default function Dashboard() {
       <Header navbar />
       <S.Main $state={slidingState}>
         <S.ContentSection>
-          <CustomSuspense>
-            {selectedNav === 'wallet' ? <Wallet /> : null}
-            {selectedNav === 'stock' ? <Stock /> : null}
-            {selectedNav === 'news' ? <News /> : null}
-          </CustomSuspense>
+          {selectedNav === 'wallet' && <Wallet />}
+          {selectedNav === 'stock' && (
+            <DelayedSuspense fallback={<StockSkeleton />} delay={0}>
+              <Stock />
+            </DelayedSuspense>
+          )}
+          {selectedNav === 'news' && (
+            <DelayedSuspense fallback={<StockSkeleton />} delay={0}>
+              <News />
+            </DelayedSuspense>
+          )}
         </S.ContentSection>
         <Timer />
       </S.Main>

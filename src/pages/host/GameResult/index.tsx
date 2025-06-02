@@ -75,7 +75,7 @@ function GameResult() {
           width: 600,
           imageWidth: 200,
           imageHeight: 200,
-          imageUrl: '/images/errorImage.png',
+          imageUrl: '/images/error-image.png',
           showCancelButton: true,
           confirmButtonColor: '#A7C2E4',
           cancelButtonColor: '#ec7272',

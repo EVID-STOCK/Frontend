@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { roomCodeState } from '@states/host/roomSetState';
 import { getStockList } from '@apis/api/wallet';
@@ -9,10 +9,6 @@ import StockListItem from './components/StockListItem';
 import * as S from './styles';
 import { useQueryClient } from 'react-query';
 import { useSocket } from '@contexts/SocketContext';
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from '@components/ErrorFallback';
-import LoadingFallback from '@components/LoadingFallback';
-import { DelayedSuspense } from '@components/DelayedSuspense';
 
 function Stock() {
   const roomCode = useRecoilValue(roomCodeState);
@@ -50,21 +46,17 @@ function Stock() {
     <>
       <S.StockListContainer>
         <h3>주식 목록</h3>
-        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
-          <DelayedSuspense fallback={<LoadingFallback />} delay={0}>
-            <S.StockListWrapper>
-              {stockList?.map((stock, index) => {
-                return (
-                  <StockListItem
-                    key={stock.companyName}
-                    stock={stock}
-                    index={index}
-                  />
-                );
-              })}
-            </S.StockListWrapper>
-          </DelayedSuspense>
-        </ErrorBoundary>
+        <S.StockListWrapper>
+          {stockList?.map((stock, index) => {
+            return (
+              <StockListItem
+                key={stock.companyName}
+                stock={stock}
+                index={index}
+              />
+            );
+          })}
+        </S.StockListWrapper>
       </S.StockListContainer>
       <SlidingPanel>
         <PurchasePanel />
