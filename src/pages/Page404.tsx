@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 export default function Page404() {
   return (
     <Page404Layout>
-      <img src="/images/errorImage.png" />
+      <img src="/images/error-image.png" />
       <h1>404</h1>
       <p>페이지가 존재하지 않습니다</p>
       <p>올바른 링크를 다시 입력해보세요</p>
