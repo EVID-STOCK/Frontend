@@ -1,39 +1,23 @@
 import React from 'react';
 import ListLayout from '@components/ListLayout';
-import { useRecoilState } from 'recoil';
-import { styled } from 'styled-components';
-import { roomSetState } from '@states/host/roomSetState';
 import convertSecondsToMinute from '@utils/convertSecondsToMinute';
 import Select from '@components/Select';
-Select;
+import * as S from './styles';
+import { useSetRoom } from './useSetRoom';
 
-function RoomSetting() {
-  const [roomSetting, setRoomSetting] = useRecoilState(roomSetState);
-
-  const handleRoundSelect = (selected: string) => {
-    setRoomSetting((pre) => ({
-      ...pre,
-      round_num: Number(selected),
-    }));
-  };
-  const handleTimelimitSelect = (selected: string) => {
-    setRoomSetting((pre) => ({
-      ...pre,
-      time_limit: Number(selected),
-    }));
-  };
-  const handleSeedSelect = (selected: string) => {
-    setRoomSetting((pre) => ({
-      ...pre,
-      seed: Number(selected) * 10000,
-    }));
-  };
+function RoomSettingContainer() {
+  const {
+    roomSetting,
+    handleRoundSelect,
+    handleTimelimitSelect,
+    handleSeedSelect,
+  } = useSetRoom();
 
   return (
-    <RoomSettingContainer>
+    <S.RoomSettingContainer>
       <ListLayout title="방 설정" src="/icons/room-icon.svg">
-        <ListContainer>
-          <SelectList>
+        <S.ListContainer>
+          <S.SelectList>
             <Select
               title="라운드"
               options={new Array(6).fill(0).map((_, index) => index + 5)}
@@ -75,54 +59,12 @@ function RoomSetting() {
                   : '만원'
               }
             />
-          </SelectList>
-          <ListImage src="/images/room-setting-image.svg" />
-        </ListContainer>
+          </S.SelectList>
+          <S.ListImage src="/images/room-setting-image.svg" />
+        </S.ListContainer>
       </ListLayout>
-    </RoomSettingContainer>
+    </S.RoomSettingContainer>
   );
 }
 
-export default React.memo(RoomSetting);
-
-const ListContainer = styled.div`
-  height: calc(100vh - 88px);
-  min-height: 800px;
-  max-height: 1000px;
-
-  @media screen and (max-width: 768px) {
-    height: auto;
-    min-height: unset;
-    max-height: unset;
-  }
-`;
-
-const RoomSettingContainer = styled.section`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`;
-
-const SelectList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2.9rem;
-  position: absolute;
-  left: 3.7rem;
-  top: 6.5rem;
-  z-index: 1;
-
-  @media screen and (max-width: 768px) {
-    position: static;
-  }
-`;
-
-const ListImage = styled.img`
-  align-self: center;
-  position: absolute;
-  bottom: 9.1rem;
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-`;
+export default React.memo(RoomSettingContainer);

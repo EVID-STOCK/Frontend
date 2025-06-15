@@ -14,7 +14,7 @@ export default function useGameStart(participantLength: number) {
   const roomSetting = useRecoilValue(roomSetState);
   const { openModal } = useModalState();
 
-  return useCallback(async () => {
+  const handleClickGameStartButton = useCallback(async () => {
     if (
       !roomSetting.round_num ||
       !roomSetting.time_limit ||
@@ -40,4 +40,6 @@ export default function useGameStart(participantLength: number) {
       networkErrorAlert('게임방이 존재하지 않습니다');
     }
   }, [roomSetting, participantLength]);
+
+  return { handleClickGameStartButton };
 }

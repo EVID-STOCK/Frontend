@@ -2,7 +2,7 @@ import ActionButton from '@components/ActionButton';
 import useGameStart from './useGameStart';
 
 function GameStartButton({ participantLength }: { participantLength: number }) {
-  const handleClickGameStartButton = useGameStart(participantLength);
+  const { handleClickGameStartButton } = useGameStart(participantLength);
 
   return (
     <ActionButton
