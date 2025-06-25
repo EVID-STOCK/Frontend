@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RoomSet } from 'types/room';
 import { defaultInstance } from '../utils/instance';
+import { ApiResponse } from '@apis/types/api.types';
+import { ParticipantListResponse } from '@apis/types/stock.types';
 
 // 게임방 비밀번호 가져오기
 export const getGameRoomPassword = async () => {
   try {
     const { data, status } = await defaultInstance.post(`/rooms`);
-    return { data, status };
+    return { ...data, status };
   } catch (e: any) {
     if (e.response) {
       return e.response.data;
@@ -56,6 +58,14 @@ export const fetchRoomInfo = async (roomPW: string) => {
       };
     }
   }
+};
+
+// 참여자 리스트 가져오기
+export const fetchParticipantList = async (
+  roomPW: string
+): Promise<ApiResponse<ParticipantListResponse>> => {
+  const response = await defaultInstance.get(`/rooms/${roomPW}/participants`);
+  return response.data;
 };
 
 // 게임방 제거하기

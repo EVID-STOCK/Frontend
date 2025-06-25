@@ -1,8 +1,5 @@
+import { StockGraphResponse } from '@apis/types/game.types';
 import { defaultInstance } from '@apis/utils/instance';
-
-interface StockGraphResponse {
-  [stockId: string]: { stock_price: number };
-}
 
 // 특정 회사에 해당하는 주식 그래프 가져오기
 export const fetchStockGraph = async (
@@ -15,7 +12,6 @@ export const fetchStockGraph = async (
         pwd: roomPW,
       },
     });
-
     return response.data;
   } catch (e: any) {
     if (e.response) {
