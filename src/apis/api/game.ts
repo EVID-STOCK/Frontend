@@ -96,14 +96,14 @@ export const participateGameRoom = async (
   studentInfo: StudentInfo
 ) => {
   try {
-    const { data, status } = await defaultInstance.post(
+    const response = await defaultInstance.post(
       `/users/${roomPW}`,
       studentInfo
     );
-    return { data, status };
+    return response;
   } catch (e: any) {
     if (e.response) {
-      return e.response.data;
+      return e.response;
     } else {
       return {
         status: null,
