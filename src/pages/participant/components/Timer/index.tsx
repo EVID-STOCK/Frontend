@@ -16,7 +16,7 @@ import { useSocket } from '@contexts/SocketContext';
 
 function Timer() {
   const navigate = useNavigate();
-  const { socket, subscribe, unsubscribe, sendMessage } = useSocket();
+  const { sendMessage, registerCallback, isConnect } = useSocket();
   const round = useRecoilValue(currentRoundState); // 현재 라운드
   const roomSetting = useRecoilValue(roomSetState); // 방에 세팅된 라운드
   const [timer, setTimer] = useRecoilState(timerState);
@@ -32,11 +32,11 @@ function Timer() {
     queryClient.invalidateQueries(['userInfo']);
     queryClient.invalidateQueries(['newsList']);
     queryClient.invalidateQueries(['stockGraph']);
-    sendMessage('/app/round/get', { roomCode });
+    sendMessage(`/app/room`, { data: { roomCode }, type: 'ROOM_ROUND' });
   };
 
-  const hanldeTimerTick = (info: number) => {
-    const { min, sec } = convertSecondsToMinute(info);
+  const hanldeTimerTick = (message: { remainingTime: number }) => {
+    const { min, sec } = convertSecondsToMinute(message.remainingTime);
     setTimer({ min, sec });
   };
 
@@ -64,30 +64,20 @@ function Timer() {
   };
 
   useEffect(() => {
-    if (!socket || !roomCode) return;
+    if (!isConnect) return;
 
-    subscribe(`/topic/game/${roomCode}/timer-started`, handleTimerStart);
-    subscribe(`/topic/game/${roomCode}/timer-tick`, hanldeTimerTick);
-    subscribe(
-      `/topic/game/${roomCode}/update-stock-graph`,
-      handleUpdateStockGraph
-    );
-    subscribe(`/topic/game/${roomCode}/timer-ended`, handleTimerEnd);
-    subscribe(`/topic/game/${roomCode}/timer-stopped`, handleTimerStop);
-
-    return () => {
-      unsubscribe(`/topic/game/${roomCode}/timer-started`);
-      unsubscribe(`/topic/game/${roomCode}/timer-tick`);
-      unsubscribe(`/topic/game/${roomCode}/update-stock-graph`);
-      unsubscribe(`/topic/game/${roomCode}/timer-ended`);
-      unsubscribe(`/topic/game/${roomCode}/timer-stopped`);
-    };
-  }, [socket, roomCode]);
+    registerCallback('TIMER_START', handleTimerStart);
+    registerCallback('TIMER_TICK', hanldeTimerTick);
+    registerCallback('TIMER_END', handleTimerEnd);
+    registerCallback('TIMER_STOP', handleTimerStop);
+    registerCallback('STOCK_GRAPH', handleUpdateStockGraph);
+  }, [isConnect]);
 
   return (
     <TimerSection>
       <p>
-        {round} / {roomSetting.round_num} 라운드
+        {/* 1라운드 당시에는 roundNum에 아무 값도 들어있지 않음. */}
+        {round} / {roomSetting.roundNum} 라운드
       </p>
       <p>
         {timer.min !== null && timer.sec !== null

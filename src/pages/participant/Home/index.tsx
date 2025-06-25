@@ -23,7 +23,7 @@ import useModalState from '@hooks/useModalState';
 
 export default function Home() {
   const swiperRef = useRef<SwiperRef>(null);
-  const { socket, sendMessage } = useSocket();
+  const { sendMessage, isConnect } = useSocket();
   const { closeModal } = useModalState();
 
   const resetselectedCompanyStockState = useResetRecoilState(
@@ -47,18 +47,14 @@ export default function Home() {
 
   // 방 나가기
   const leaveRoom = async () => {
-    if (!socket) return;
+    if (!isConnect) return;
     if (roomCode) {
       const result = await leaveGameRoom(roomCode);
       if (result.status !== 200) {
         console.error('오류 발생. 게임방에서 나가지 못했습니다.');
         return;
       }
-      console.log(roomCode);
-      sendMessage('/app/room/participants', { roomCode });
-      // sendMessage('/app/room/leave', { roomCode });
-      // socket.emit('getParticipants', roomCode);
-      // socket.emit('leaveRoom', roomCode);
+      sendMessage(`/app/room`, { data: { roomCode }, type: 'ROOM_LEAVE' });
     }
     // 전역변수 값들 초기화
     resetselectedCompanyStockState();

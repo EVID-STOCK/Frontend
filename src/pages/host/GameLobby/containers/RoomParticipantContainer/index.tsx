@@ -1,17 +1,10 @@
 import React from 'react';
 import ListLayout from '@components/ListLayout';
-import { Student } from 'types/room';
 import { useRoomParticipants } from './useRoomParticipants';
 import * as S from './styles';
 
-function RoomParticipantContainer({
-  participants,
-  setParticipants,
-}: {
-  participants: Student[];
-  setParticipants: React.Dispatch<React.SetStateAction<Student[]>>;
-}) {
-  useRoomParticipants({ setParticipants });
+function RoomParticipantContainer() {
+  const { participants } = useRoomParticipants();
 
   return (
     <ListLayout title="참여인원" src="/icons/participant-icon.svg">

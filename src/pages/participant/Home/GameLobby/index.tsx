@@ -1,13 +1,10 @@
 import { useSocket } from '@contexts/SocketContext';
-import { roomCodeState } from '@states/host/roomSetState';
-import { participantsState } from '@states/participant/roomEntryState';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { Participant } from 'types/room';
 import * as S from './styles';
 import ParticipantListItem from '../components/ParticipantListItem';
-import { v4 as uuidv4 } from 'uuid';
+import { useGetParticipants } from '@hooks/useParticipantsQuery';
+import { useQueryClient } from 'react-query';
 
 export default function ParticipantsGameLobby({
   handleClickBackButton,
@@ -15,27 +12,24 @@ export default function ParticipantsGameLobby({
   handleClickBackButton: () => void;
 }) {
   const navigate = useNavigate();
-  const { socket, subscribe, sendMessage } = useSocket();
-  const [participants, setParticipants] = useRecoilState(participantsState);
-  const roomCode = useRecoilValue(roomCodeState);
-  const key = useMemo(() => uuidv4(), []);
+  const { registerCallback } = useSocket();
+  const { data: participantListData } = useGetParticipants();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (!socket) return;
-
-    const handleUpdateParticipants = (message: any) => {
-      // console.log('message???', message);
-      if (message.status === 'start') {
-        navigate('wallet', {
-          state: { permit: true },
-        });
-      } else {
-        setParticipants(message.participants as Participant[]);
-      }
-    };
-    subscribe(`/topic/room/participants/${roomCode}`, handleUpdateParticipants);
-    sendMessage('/app/room/participants', { roomCode });
-  }, [socket, roomCode]);
+    registerCallback('GAME_START', () => {
+      navigate('wallet', {
+        state: { permit: true },
+      });
+    });
+    registerCallback('ROOM_JOIN', () => {
+      console.log('room_join이군요');
+      queryClient.invalidateQueries(['participants']);
+    });
+    registerCallback('ROOM_LEAVE', () => {
+      queryClient.invalidateQueries(['participants']);
+    });
+  }, []);
 
   return (
     <S.GameLobbyContainer>
@@ -44,15 +38,19 @@ export default function ParticipantsGameLobby({
       </div>
       <S.ParticipantListWrapper>
         <S.ListContainer>
-          {participants.map((participant) => {
-            return (
-              <ParticipantListItem
-                key={key}
-                profile={participant.profileNum}
-                userName={participant.userName}
-              />
-            );
-          })}
+          {participantListData?.data?.participants ? (
+            participantListData?.data?.participants?.map((participant: any) => {
+              return (
+                <ParticipantListItem
+                  key={participant.userId}
+                  profile={participant.profileNum}
+                  userName={participant.userName}
+                />
+              );
+            })
+          ) : (
+            <div>값 없음</div>
+          )}
         </S.ListContainer>
       </S.ParticipantListWrapper>
       <p>곧 게임이 시작됩니다.</p>

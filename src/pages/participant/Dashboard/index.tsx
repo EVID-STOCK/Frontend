@@ -1,12 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { navbarState } from '@states/participant/navbarState';
-import {
-  currentRoundState,
-  roomCodeState,
-  roomSetState,
-} from '@states/host/roomSetState';
+import { currentRoundState, roomSetState } from '@states/host/roomSetState';
 import Timer from '../components/Timer';
 import Wallet from './Wallet';
 import News from './News';
@@ -21,48 +17,32 @@ import { DelayedSuspense } from '@components/DelayedSuspense';
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { socket, subscribe, unsubscribe } = useSocket();
+  const { registerCallback, isConnect } = useSocket();
   const [selectedNav] = useRecoilState(navbarState);
   const [round, setRound] = useRecoilState(currentRoundState); // 현재 라운드
 
-  const roomCode = useRecoilValue(roomCodeState);
   const setRoomSetting = useSetRecoilState(roomSetState);
 
   const { state: modalState, isOpen } = useModalState();
   const { isSlidingOpen, slidingState } = useSlidingPanel();
 
   useEffect(() => {
-    if (!socket || !roomCode) return;
+    if (!isConnect) return;
 
     // 게임 종료 → 결과 페이지로 이동
-    subscribe(`/topic/game/${roomCode}/ended`, () => {
+    registerCallback('GAME_END', () => {
       navigate('/participant', { replace: true });
     });
 
     // 라운드 정보 수신 → 상태 업데이트
-    subscribe(
-      `/topic/round/${roomCode}/notify`,
-      ({
-        currentRound,
-        totalRound,
-      }: {
-        currentRound: number;
-        totalRound: number;
-      }) => {
-        console.log('currentRound', currentRound);
-        setRound(currentRound);
-        setRoomSetting((prev) => ({
-          ...prev,
-          round_num: totalRound,
-        }));
-      }
-    );
-
-    return () => {
-      unsubscribe(`/topic/game/${roomCode}/ended`);
-      unsubscribe(`/topic/round/${roomCode}/notify`);
-    };
-  }, [socket, roomCode]);
+    registerCallback(`ROOM_ROUND`, (message: any) => {
+      setRound(message.currentRound);
+      setRoomSetting((prev) => ({
+        ...prev,
+        roundNum: message.totalRound,
+      }));
+    });
+  }, [isConnect]);
 
   // (모달창 열린 후 or 라운드가 끝난 화면이 나올 경우) 배경 스크롤 불가능하도록 설정
   useEffect(() => {

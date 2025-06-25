@@ -1,35 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSocket } from '@contexts/SocketContext';
-import { Student } from 'types/room';
+import { useQueryClient } from 'react-query';
+import { useGetParticipants } from '@hooks/useParticipantsQuery';
 
-interface Message {
-  status?: string;
-  message?: string;
-  participants?: Student[];
-}
-
-export function useRoomParticipants({
-  setParticipants,
-}: {
-  setParticipants: React.Dispatch<React.SetStateAction<Student[]>>;
-}) {
-  const { subscribe, sendMessage, isConnect } = useSocket();
+export function useRoomParticipants() {
+  const { isConnect, registerCallback } = useSocket();
   const { state } = useLocation();
+  const queryClient = useQueryClient();
+  const { data: participantListData } = useGetParticipants();
 
   useEffect(() => {
     if (!state?.roomPW || !isConnect) return;
-
-    const handleUpdateParticipants = (message: Message) => {
-      if (!message.status && message.participants) {
-        setParticipants(message.participants);
-      }
-    };
-
-    subscribe(
-      `/topic/room/participants/${state.roomPW}`,
-      handleUpdateParticipants
-    );
-    sendMessage('/app/room/participants', { roomCode: state.roomPW });
+    registerCallback('ROOM_JOIN', () => {
+      queryClient.invalidateQueries(['participants']);
+    });
+    registerCallback('ROOM_LEAVE', () => {
+      queryClient.invalidateQueries(['participants']);
+    });
   }, [state?.roomPW, isConnect]);
+
+  return { participants: participantListData?.data?.participants || [] };
 }

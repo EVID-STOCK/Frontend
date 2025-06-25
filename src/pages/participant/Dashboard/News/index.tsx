@@ -27,12 +27,12 @@ function News() {
     }
 
     const newsList = await getNewsList(roomCode);
-    const nNewsList = newsList.descriptions.map(
+    const nNewsList = newsList.data.descriptions.map(
       (description: string, index: number) => {
         return {
-          com_name: newsList.com_name[index],
+          com_name: newsList.data.com_name[index],
           description,
-          isGood: newsList.isGood[index],
+          isGood: newsList.data.isGood[index],
         };
       }
     );

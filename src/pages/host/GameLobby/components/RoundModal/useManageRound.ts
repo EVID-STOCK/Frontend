@@ -9,10 +9,10 @@ import { networkErrorAlert } from '@utils/customAlert';
 import useModalState from '@hooks/useModalState';
 import { useSocket } from '@contexts/SocketContext';
 
-const useRound = () => {
+const useManageRound = () => {
   const { state } = useLocation();
   // const navigate = useNavigate();
-  const { socket, subscribe, sendMessage, unsubscribe } = useSocket();
+  const { registerCallback, sendMessage, isConnect } = useSocket();
   const [timer, setTimer] = useState<Timer>({ min: null, sec: null });
   const setRound = useSetRecoilState(currentRoundState);
   const { openModal, state: modalState } = useModalState();
@@ -41,40 +41,31 @@ const useRound = () => {
   };
 
   useEffect(() => {
-    if (!socket || !state.roomPW) return;
-    const roomCode = state.roomPW;
+    if (!isConnect || !state.roomPW) return;
 
-    subscribe(`/topic/game/${roomCode}/timer-started`, () => {
-      sendMessage('/app/round/get', { roomCode });
+    registerCallback('TIMER_START', () => {
+      sendMessage(`/app/room`, {
+        data: { roomCode: state.roomPW },
+        type: 'ROOM_ROUND',
+      });
     });
 
-    subscribe(`/topic/game/${roomCode}/timer-tick`, (remainingTime: number) => {
-      const { min, sec } = convertSecondsToMinute(remainingTime);
+    registerCallback('TIMER_TICK', (message: { remainingTime: number }) => {
+      const { min, sec } = convertSecondsToMinute(message.remainingTime);
       setTimer({ min, sec });
     });
 
-    subscribe(`/topic/game/${roomCode}/timer-ended`, (currentRound: number) => {
+    registerCallback('TIMER_END', (currentRound: number) => {
       openModal('hostGameModal', 'gameover');
       saveGameResult(currentRound);
     });
 
-    // 라운드 정보
-    subscribe(
-      `/topic/round/${roomCode}/notify`,
-      ({ currentRound }: NotifyRoundProps) => {
-        setRound(currentRound);
-      }
-    );
-
-    return () => {
-      unsubscribe(`/topic/game/${roomCode}/timer-started`);
-      unsubscribe(`/topic/game/${roomCode}/timer-tick`);
-      unsubscribe(`/topic/game/${roomCode}/timer-ended`);
-      unsubscribe(`/topic/round/${roomCode}/notify`);
-    };
-  }, [socket, state.roomPW]);
+    registerCallback(`ROOM_ROUND`, (message: NotifyRoundProps) => {
+      setRound(message.currentRound);
+    });
+  }, [isConnect, state.roomPW]);
 
   return { modalState, timer, setTimer };
 };
 
-export default useRound;
+export default useManageRound;

@@ -7,16 +7,16 @@ function Profile() {
 
   return (
     <ProfileWrapper>
-      {data?.user_info?.profile_num === 0 ? (
+      {data?.data.user_info?.profile_num === 0 ? (
         <img src="/images/profile-gray-1.png" />
       ) : null}
-      {data?.user_info?.profile_num === 1 ? (
+      {data?.data.user_info?.profile_num === 1 ? (
         <img src="/images/profile-gray-2.png" />
       ) : null}
-      {data?.user_info?.profile_num === 2 ? (
+      {data?.data.user_info?.profile_num === 2 ? (
         <img src="/images/profile-gray-3.png" />
       ) : null}
-      <p>{data?.user_info?.username}</p>
+      <p>{data?.data.user_info?.username}</p>
     </ProfileWrapper>
   );
 }

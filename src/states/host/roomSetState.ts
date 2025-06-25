@@ -7,8 +7,8 @@ const { persistAtom } = recoilPersist();
 export const roomSetState = atom<RoomSet>({
   key: 'roomSetState',
   default: {
-    round_num: null,
-    time_limit: null,
+    roundNum: null,
+    timeLimit: null,
     seed: null,
   },
   effects_UNSTABLE: [persistAtom],

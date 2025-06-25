@@ -20,10 +20,13 @@ export default function RoundEndModal({
   const goNextRound = async () => {
     const result = await updateNextRound(state.roomPW);
     if (result.status === 200) {
-      if (result.data.state === 'next') {
+      if (result.data.data.state === 'next') {
         openModal('hostGameModal', 'game');
         setTimer({ min: null, sec: null });
-        sendMessage('/app/game/start-timer', { roomCode: state.roomPW });
+        sendMessage(`/app/game`, {
+          data: { roomCode: state.roomPW },
+          type: 'TIMER_START',
+        });
       } else {
         // 모든 라운드가 끝났을 경우
         closeModal('hostGameModal');

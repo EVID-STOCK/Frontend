@@ -13,15 +13,15 @@ export default function StockList() {
   const { openSliding } = useSlidingPanel();
 
   useEffect(() => {
-    if (userData && userData?.stock_list) {
-      const stockList = Object.keys(userData.stock_list).map((item) => {
-        const stock = userData.stock_list[item];
+    if (userData && userData?.data?.stock_list) {
+      const stockList = Object.keys(userData.data?.stock_list).map((item) => {
+        const stock = userData.data?.stock_list[item];
         stock.id = Number(item);
         return stock;
       });
       setStockList(stockList);
     }
-  }, [userData?.stock_list]);
+  }, [userData?.data.stock_list]);
 
   return (
     <>

@@ -35,7 +35,7 @@ export default function UserForm({
   pwCompare,
   setPwCompare,
 }: UserFormProps) {
-  const { socket, subscribe, sendMessage } = useSocket();
+  const { sendMessage, connectSocket, isConnect } = useSocket();
   const [name, setName] = useState({ value: '', state: false });
   const [roomCode, setRoomCode] = useState({ value: '', state: false });
   const [selectedProfile, setSelectedProfile] = useState(0);
@@ -69,10 +69,15 @@ export default function UserForm({
       });
       if (result.status === 200) {
         setPersistRoomCode(roomCode.value);
+        await connectSocket(roomCode.value);
         setAllowSlideNext(true);
         setPwCompare({
           text: '패스워드가 일치합니다.',
           state: true,
+        });
+        sendMessage(`/app/room`, {
+          data: { roomCode: roomCode.value },
+          type: 'ROOM_JOIN',
         });
       } else if (result.status === 404) {
         setRoomCode((prev) => ({ ...prev, state: false }));
@@ -102,18 +107,10 @@ export default function UserForm({
       }, 2000);
     }
 
-    // 슬라이드 오류 해결을 위해 필요
     return () => {
       clearTimeout(timeoutId);
     };
   }, [pwCompare.state]);
-
-  useEffect(() => {
-    const handleConnect = () => {
-      sendMessage('/app/room/participants', { roomCode: persistRoomCode });
-    };
-    subscribe(`/topic/room/connect/complete/${persistRoomCode}`, handleConnect);
-  }, [socket, persistRoomCode]);
 
   useEffect(() => {
     if (persistRoomCode) return;

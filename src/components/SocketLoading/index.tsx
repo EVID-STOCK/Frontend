@@ -8,16 +8,18 @@ import { rotatedImage } from '@styles/animation';
 
 export default function SocketLoading() {
   const { state } = useLocation();
-  const { socket, sendMessage, isConnect } = useSocket();
+  const { isConnect, connectSocket } = useSocket();
   const setRoomCode = useSetRecoilState(roomCodeState);
   const [connectTimeout, setConnectTimeout] = useState(false);
 
   useEffect(() => {
-    if (state?.roomPW && socket) {
+    if (state?.roomPW) {
       setRoomCode(state.roomPW);
-      sendMessage('/app/room/connect', { roomCode: state.roomPW });
+      (async () => {
+        await connectSocket(state.roomPW);
+      })();
     }
-  }, [state, socket]);
+  }, [state]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

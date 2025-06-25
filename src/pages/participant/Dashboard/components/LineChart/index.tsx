@@ -40,7 +40,7 @@ function LineChart() {
   const getRoomInfo = async () => {
     if (!persistRoomCode) return;
     const { data: roomData } = await fetchRoomInfo(persistRoomCode);
-    setSeconds(roomData.timeLimit);
+    setSeconds(roomData.data.timeLimit);
   };
 
   const { data: stockGraphData = [], isLoading } = useQuery(
@@ -49,7 +49,7 @@ function LineChart() {
     {
       enabled: !!companyStock.id && !!persistRoomCode,
       refetchOnWindowFocus: false,
-      select: (result) => Object.values(result).map((x) => x.stock_price),
+      select: (result) => Object.values(result.data).map((x) => x.stockPrice),
     }
   );
 

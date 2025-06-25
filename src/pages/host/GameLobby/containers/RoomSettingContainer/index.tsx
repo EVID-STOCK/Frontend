@@ -23,7 +23,7 @@ function RoomSettingContainer() {
               options={new Array(6).fill(0).map((_, index) => index + 5)}
               handleOption={handleRoundSelect}
               value={
-                roomSetting.round_num ? String(roomSetting.round_num) : '라운드'
+                roomSetting.roundNum ? String(roomSetting.roundNum) : '라운드'
               }
             />
             <Select
@@ -31,11 +31,11 @@ function RoomSettingContainer() {
               options={new Array(20).fill(0).map((_, index) => 30 + 30 * index)}
               handleOption={handleTimelimitSelect}
               value={
-                roomSetting.time_limit
+                roomSetting.timeLimit
                   ? String(
-                      convertSecondsToMinute(roomSetting.time_limit).min +
+                      convertSecondsToMinute(roomSetting.timeLimit).min +
                         ':' +
-                        convertSecondsToMinute(roomSetting.time_limit).sec
+                        convertSecondsToMinute(roomSetting.timeLimit).sec
                     )
                   : '~분 ~초'
               }

@@ -57,16 +57,19 @@ function GameResult() {
       condition.round as number,
       condition.opt as number
     );
-    setList(result.data);
+    setList(result.data.data);
   };
 
   // 다음 라운드로 넘어가기
   const goNextRound = async () => {
     const result = await updateNextRound(state.roomPW);
     if (result.status === 200) {
-      if (result.data.state === 'next') {
+      if (result.data.data.state === 'next') {
         openModal('hostGameModal', 'game');
-        sendMessage('/app/game/start-timer', { roomCode: state.roomPW }); // 타이머 시작
+        sendMessage(`/app/game`, {
+          data: { roomCode: state.roomPW },
+          type: 'TIMER_START',
+        });
         navigate(-1); // 게임 대기방으로 다시 돌아감.
       } else {
         Swal.fire({
@@ -87,7 +90,10 @@ function GameResult() {
           },
         }).then((result) => {
           if (result.isConfirmed) {
-            sendMessage('/app/game/end', { roomCode: state.roomPW });
+            sendMessage(`/app/game`, {
+              data: { roomCode: state.roomPW },
+              type: 'GAME_END',
+            });
             navigate('/', { replace: true });
           }
         });

@@ -14,8 +14,8 @@ export interface Timer {
 }
 
 export interface RoomSet {
-  round_num: number | null;
-  time_limit: number | null;
+  roundNum: number | null;
+  timeLimit: number | null;
   seed: number | null;
 }
 

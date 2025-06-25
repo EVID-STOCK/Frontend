@@ -10,16 +10,12 @@ import useModalState from '@hooks/useModalState';
 
 export default function useGameStart(participantLength: number) {
   const { state } = useLocation();
-  const { socket, sendMessage } = useSocket();
+  const { sendMessage, isConnect } = useSocket();
   const roomSetting = useRecoilValue(roomSetState);
   const { openModal } = useModalState();
 
   const handleClickGameStartButton = useCallback(async () => {
-    if (
-      !roomSetting.round_num ||
-      !roomSetting.time_limit ||
-      !roomSetting.seed
-    ) {
+    if (!roomSetting.roundNum || !roomSetting.timeLimit || !roomSetting.seed) {
       defaultAlert('입력하지 않은 값이 있습니다');
       return;
     }
@@ -29,13 +25,19 @@ export default function useGameStart(participantLength: number) {
     }
     const result = await updateRoomInfo(state.roomPW, roomSetting as RoomSet);
     if (result.status === 200) {
-      if (!socket) {
+      if (!isConnect) {
         networkErrorAlert('연결이 불안정합니다. 다시 시도해주세요');
         return;
       }
       openModal('hostGameModal', 'game');
-      sendMessage('/app/game/start', { roomCode: state.roomPW }); // 게임 시작
-      sendMessage('/app/game/start-timer', { roomCode: state.roomPW }); // 타이머 시작
+      sendMessage(`/app/game`, {
+        data: { roomCode: state.roomPW },
+        type: 'GAME_START',
+      });
+      sendMessage(`/app/game`, {
+        data: { roomCode: state.roomPW },
+        type: 'TIMER_START',
+      });
     } else if (result.status === 404) {
       networkErrorAlert('게임방이 존재하지 않습니다');
     }

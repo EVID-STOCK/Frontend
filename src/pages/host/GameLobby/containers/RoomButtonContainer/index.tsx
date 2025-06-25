@@ -1,15 +1,12 @@
 import ActionButton from '@components/ActionButton';
 import GameStartButton from '../../components/GameStartButton';
-import { Student } from 'types/room';
 import useModalState from '@hooks/useModalState';
 import * as S from './styles';
+import { useGetParticipants } from '@hooks/useParticipantsQuery';
 
-export default function RoomButtonContainer({
-  participants,
-}: {
-  participants: Student[];
-}) {
+export default function RoomButtonContainer() {
   const { openModal } = useModalState();
+  const { data: participantListData } = useGetParticipants();
 
   const handleClickPasswordButton = () => {
     openModal('hostGameModal', 'password');
@@ -24,7 +21,9 @@ export default function RoomButtonContainer({
         fontSize={3.2}
         onClick={handleClickPasswordButton}
       />
-      <GameStartButton participantLength={participants.length} />
+      <GameStartButton
+        participantLength={participantListData?.data.participants.length || 1}
+      />
     </S.ButtonWrapper>
   );
 }

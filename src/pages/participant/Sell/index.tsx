@@ -110,7 +110,7 @@ function Sell() {
           <p>
             {userData &&
               (
-                userData?.user_info?.using_asset +
+                userData?.data.user_info?.using_asset +
                 Number(sellStock) * companyStock.secondMenuPrice
               ).toLocaleString('ko-KR')}
             원

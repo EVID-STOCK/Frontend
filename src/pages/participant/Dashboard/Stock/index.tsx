@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { roomCodeState } from '@states/host/roomSetState';
 import { getStockList } from '@apis/api/wallet';
-import { useQuery, useQueryErrorResetBoundary } from 'react-query';
+import { useQuery } from 'react-query';
 import SlidingPanel from '@pages/participant/Dashboard/components/SlidingPanel';
 import PurchasePanel from '@pages/participant/Dashboard/PurchasePanel';
 import StockListItem from './components/StockListItem';
@@ -13,8 +13,7 @@ import { useSocket } from '@contexts/SocketContext';
 function Stock() {
   const roomCode = useRecoilValue(roomCodeState);
   const queryClient = useQueryClient();
-  const { subscribe, unsubscribe } = useSocket();
-  const { reset } = useQueryErrorResetBoundary();
+  const { registerCallback } = useSocket();
 
   const { data: stockList } = useQuery(
     ['stockList', roomCode],
@@ -32,14 +31,7 @@ function Stock() {
       queryClient.invalidateQueries(['stockList']); // 주식 목록 갱신
     };
 
-    subscribe(
-      `/topic/room/${roomCode}/update-stock-list`,
-      handleUpdateStockList
-    );
-
-    return () => {
-      unsubscribe(`/topic/room/${roomCode}/update-stock-list`);
-    };
+    registerCallback('STOCK_GRAPH', handleUpdateStockList);
   }, [roomCode]);
 
   return (
@@ -47,7 +39,7 @@ function Stock() {
       <S.StockListContainer>
         <h3>주식 목록</h3>
         <S.StockListWrapper>
-          {stockList?.map((stock, index) => {
+          {stockList?.data.map((stock, index) => {
             return (
               <StockListItem
                 key={stock.companyName}

@@ -57,16 +57,16 @@ function Purchase() {
       setNotice({
         available: null,
         content: `${
-          userData?.stock_list[companyStock.id as number] === undefined
+          userData?.data.stock_list[companyStock.id as number] === undefined
             ? 0
-            : userData?.stock_list[companyStock.id as number]?.count
+            : userData?.data.stock_list[companyStock.id as number]?.count
         }주 보유중`,
       });
     } else {
       // 몇 주를 살지 입력한 경우 -> 남은 가용자산 계산
       const useAsset = Number(purchaseStock) * companyStock.secondMenuPrice; // 사용할 금액
 
-      if (userData?.user_info?.using_asset >= useAsset) {
+      if (userData?.data.user_info?.using_asset >= useAsset) {
         // 가용자산이 충분한 경우
         setNotice({
           available: true,
@@ -112,7 +112,7 @@ function Purchase() {
           <p>
             {userData &&
               (
-                userData?.user_info?.using_asset -
+                userData?.data.user_info?.using_asset -
                 Number(purchaseStock) * companyStock.secondMenuPrice
               ).toLocaleString('ko-KR')}
             원
