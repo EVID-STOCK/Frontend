@@ -5,7 +5,7 @@ import Select from '@components/Select';
 import * as S from './styles';
 import { useSetRoom } from './useSetRoom';
 
-function RoomSettingContainer() {
+function RoomSetting() {
   const {
     roomSetting,
     handleRoundSelect,
@@ -63,4 +63,4 @@ function RoomSettingContainer() {
   );
 }
 
-export default React.memo(RoomSettingContainer);
+export default React.memo(RoomSetting);
