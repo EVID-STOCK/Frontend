@@ -2,7 +2,7 @@ import { useSocket } from '@contexts/SocketContext';
 import { useEffect } from 'react';
 
 export default function useConnectSocket(roomPW?: string) {
-  const { connectSocket } = useSocket();
+  const { isConnect, connectSocket } = useSocket();
 
   useEffect(() => {
     if (!roomPW) return;
@@ -15,4 +15,8 @@ export default function useConnectSocket(roomPW?: string) {
       }
     })();
   }, [roomPW]);
+
+  return {
+    isConnect,
+  };
 }
