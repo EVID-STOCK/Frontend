@@ -4,27 +4,21 @@ import RoomParticipantContainer from './containers/RoomParticipantContainer';
 import RoomSettingContainer from './containers/RoomSettingContainer';
 import SocketLoading from '@components/SocketLoading';
 import { useSocket } from '@contexts/SocketContext';
-import RoomModal from './containers/RoomModalContainer';
+import RoomModalContainer from './containers/RoomModalContainer';
 import RoomButtonContainer from './containers/RoomButtonContainer';
-import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import useConnectSocket from '@hooks/useConnectSocket';
 
 export default function GameLobby() {
   const { state } = useLocation();
-  const { isConnect, connectSocket } = useSocket();
+  const { isConnect } = useSocket();
 
-  useEffect(() => {
-    if (state?.roomPW) {
-      (async () => {
-        await connectSocket(state.roomPW);
-      })();
-    }
-  }, []);
+  useConnectSocket(state.roomPW);
 
   return (
     <S.GameLobbyContainer>
       {!isConnect ? <SocketLoading /> : null}
-      <RoomModal />
+      <RoomModalContainer />
 
       <Header />
       <S.GameLobbyMain>

@@ -1,24 +1,21 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useSocket } from '@contexts/SocketContext';
 import { useQueryClient } from 'react-query';
 import { useGetParticipants } from '@hooks/useParticipantsQuery';
 
-export function useRoomParticipants() {
+export function useRoomParticipants(roomPW?: string) {
   const { isConnect, registerCallback } = useSocket();
-  const { state } = useLocation();
   const queryClient = useQueryClient();
   const { data: participantListData } = useGetParticipants();
 
   useEffect(() => {
-    if (!state?.roomPW || !isConnect) return;
-    registerCallback('ROOM_JOIN', () => {
+    if (!roomPW || !isConnect) return;
+
+    const invalidateParticiaptns = () =>
       queryClient.invalidateQueries(['participants']);
-    });
-    registerCallback('ROOM_LEAVE', () => {
-      queryClient.invalidateQueries(['participants']);
-    });
-  }, [state?.roomPW, isConnect]);
+    registerCallback('ROOM_JOIN', invalidateParticiaptns);
+    registerCallback('ROOM_LEAVE', invalidateParticiaptns);
+  }, [roomPW, isConnect]);
 
   return { participants: participantListData?.data?.participants || [] };
 }

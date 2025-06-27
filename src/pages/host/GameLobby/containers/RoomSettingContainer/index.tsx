@@ -13,6 +13,21 @@ function RoomSettingContainer() {
     handleSeedSelect,
   } = useSetRoom();
 
+  const roundOptions = Array.from({ length: 6 }, (_, i) => i + 5);
+  const timeLimitOptions = Array.from({ length: 20 }, (_, i) => 30 + 30 * i);
+  const seedOptions = Array.from({ length: 19 }, (_, i) => 100 + 50 * i);
+
+  const getTimelimitLabel = (timeLimit: number | null) => {
+    if (!timeLimit) return '~분 ~초';
+    const { min, sec } = convertSecondsToMinute(timeLimit);
+    return `${min}:${sec}`;
+  };
+
+  const getSeedLabel = (seed: number | null) => {
+    if (!seed) return '만원';
+    return `${String(seed).slice(0, -4)}`;
+  };
+
   return (
     <S.RoomSettingContainer>
       <ListLayout title="방 설정" src="/icons/room-icon.svg">
@@ -20,25 +35,15 @@ function RoomSettingContainer() {
           <S.SelectList>
             <Select
               title="라운드"
-              options={new Array(6).fill(0).map((_, index) => index + 5)}
+              options={roundOptions}
               handleOption={handleRoundSelect}
-              value={
-                roomSetting.roundNum ? String(roomSetting.roundNum) : '라운드'
-              }
+              value={roomSetting.roundNum?.toString() ?? '라운드'}
             />
             <Select
               title="제한시간"
-              options={new Array(20).fill(0).map((_, index) => 30 + 30 * index)}
+              options={timeLimitOptions}
               handleOption={handleTimelimitSelect}
-              value={
-                roomSetting.timeLimit
-                  ? String(
-                      convertSecondsToMinute(roomSetting.timeLimit).min +
-                        ':' +
-                        convertSecondsToMinute(roomSetting.timeLimit).sec
-                    )
-                  : '~분 ~초'
-              }
+              value={getTimelimitLabel(roomSetting.timeLimit)}
               convert={(value: number | string) => {
                 const { min, sec } = convertSecondsToMinute(value as number);
                 return `${min}:${sec}`;
@@ -46,18 +51,9 @@ function RoomSettingContainer() {
             />
             <Select
               title="시드머니"
-              options={new Array(19)
-                .fill(0)
-                .map((_, index) => 100 + 50 * index)}
+              options={seedOptions}
               handleOption={handleSeedSelect}
-              value={
-                roomSetting.seed
-                  ? String(roomSetting.seed).substring(
-                      0,
-                      String(roomSetting.seed).length - 4
-                    )
-                  : '만원'
-              }
+              value={getSeedLabel(roomSetting.seed)}
             />
           </S.SelectList>
           <S.ListImage src="/images/room-setting-image.svg" />

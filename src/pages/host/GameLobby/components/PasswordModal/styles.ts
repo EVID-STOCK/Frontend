@@ -4,9 +4,9 @@ export const Password = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 720px;
-  height: 240px;
-  border-radius: 24px;
+  width: 72rem;
+  height: 24rem;
+  border-radius: 2.4rem;
   background: #ffffff;
 
   & > p {

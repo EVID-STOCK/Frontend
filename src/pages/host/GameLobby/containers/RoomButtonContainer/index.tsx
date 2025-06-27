@@ -7,10 +7,7 @@ import { useGetParticipants } from '@hooks/useParticipantsQuery';
 export default function RoomButtonContainer() {
   const { openModal } = useModalState();
   const { data: participantListData } = useGetParticipants();
-
-  const handleClickPasswordButton = () => {
-    openModal('hostGameModal', 'password');
-  };
+  const participantLength = participantListData?.data.participants.length ?? 0;
 
   return (
     <S.ButtonWrapper>
@@ -19,11 +16,9 @@ export default function RoomButtonContainer() {
         padding={2}
         borderRadius={25}
         fontSize={3.2}
-        onClick={handleClickPasswordButton}
+        onClick={() => openModal('hostGameModal', 'password')}
       />
-      <GameStartButton
-        participantLength={participantListData?.data.participants.length || 1}
-      />
+      <GameStartButton participantLength={participantLength} />
     </S.ButtonWrapper>
   );
 }
