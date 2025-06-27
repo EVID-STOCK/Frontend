@@ -1,17 +1,18 @@
 import * as S from './styles';
+import React, { forwardRef } from 'react';
 
-function PasswordModal({
-  ref,
-  roomCode,
-}: {
-  ref: React.RefObject<HTMLDivElement | null>;
+type PasswordModalProps = {
   roomCode: string;
-}) {
-  return (
-    <S.Password ref={ref}>
-      <p>{roomCode}</p>
-    </S.Password>
-  );
-}
+};
 
-export default PasswordModal;
+const PasswordModal = forwardRef<HTMLDivElement, PasswordModalProps>(
+  ({ roomCode }, ref) => {
+    return (
+      <S.Password ref={ref}>
+        <p>{roomCode}</p>
+      </S.Password>
+    );
+  }
+);
+
+export default React.memo(PasswordModal);
