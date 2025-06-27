@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { roomCodeState } from '@states/host/roomSetState';
 import { fetchParticipantList } from '@apis/api/game';
 
-export const useGetParticipants = () => {
+export const useGetParticipantsQuery = () => {
   const roomCode = useRecoilValue(roomCodeState);
 
   return useQuery(

@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useSocket } from '@contexts/SocketContext';
 import { useQueryClient } from 'react-query';
-import { useGetParticipants } from '@hooks/useParticipantsQuery';
+import { useGetParticipantsQuery } from '@hooks/queries/useParticipantsQuery';
 
 export function useRoomParticipants(roomPW?: string) {
   const { isConnect, registerCallback } = useSocket();
   const queryClient = useQueryClient();
-  const { data: participantListData } = useGetParticipants();
+  const { data: participantListData } = useGetParticipantsQuery();
 
   useEffect(() => {
     if (!roomPW || !isConnect) return;

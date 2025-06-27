@@ -12,7 +12,7 @@ export const ListContainer = styled.div`
   }
 `;
 
-export const UserList = styled.div`
+export const ParticipantList = styled.div`
   display: flex;
   flex-flow: wrap;
   gap: 2.2rem 7.9rem;
@@ -21,39 +21,6 @@ export const UserList = styled.div`
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
-  }
-`;
-
-export const UserProfile = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1.6rem;
-
-  & > img {
-    width: 5.6rem;
-    height: 5.6rem;
-    border-radius: 100px;
-  }
-
-  & > p {
-    color: #ffffff;
-    font-size: 2rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    white-space: nowrap;
-  }
-
-  @media screen and (max-width: 768px) {
-    & > img {
-      width: 4rem;
-      height: 4rem;
-    }
-
-    & > p {
-      font-size: 1.5rem;
-    }
   }
 `;
 

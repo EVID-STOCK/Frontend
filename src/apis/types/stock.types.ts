@@ -1,8 +1,10 @@
+export interface Participant {
+  isHost: boolean;
+  profileNum: 0 | 1 | 2;
+  userId: number;
+  userName: string;
+}
+
 export interface ParticipantListResponse {
-  participants: {
-    isHost: boolean;
-    profileNum: number;
-    userId: number;
-    userName: string;
-  }[];
+  participants: Participant[];
 }

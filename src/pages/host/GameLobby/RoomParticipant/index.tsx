@@ -3,29 +3,24 @@ import ListLayout from '@components/ListLayout';
 import { useRoomParticipants } from './useRoomParticipants';
 import * as S from './styles';
 import { useLocation } from 'react-router-dom';
+import ParticipantItem from './components/ParticipantItem';
 
-function RoomParticipantContainer() {
+function RoomParticipant() {
   const { state } = useLocation();
   const { participants } = useRoomParticipants(state.roomPW);
 
   return (
     <ListLayout title="참여인원" src="/icons/participant-icon.svg">
       <S.ListContainer>
-        <S.UserList>
+        <S.ParticipantList>
           {participants.map((participant) => (
-            <S.UserProfile key={participant.userId}>
-              <img
-                src={`/images/profile-blue-${participant.profileNum + 1}.png`}
-                alt={`${participant.userName}의 프로필`}
-              />
-              <p>{participant.userName}</p>
-            </S.UserProfile>
+            <ParticipantItem {...participant} />
           ))}
-        </S.UserList>
+        </S.ParticipantList>
         <S.ListImage src="/images/participant-image.svg" />
       </S.ListContainer>
     </ListLayout>
   );
 }
 
-export default React.memo(RoomParticipantContainer);
+export default React.memo(RoomParticipant);
