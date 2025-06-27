@@ -4,7 +4,7 @@ import RoundModal from '../../components/RoundModal';
 import { useRoomModal } from './useRoomModal';
 import PasswordModal from '../../components/PasswordModal';
 
-function RoomModal() {
+function RoomModalContainer() {
   const { state } = useLocation();
   const { pwRef, modalState, isModalVisible, handleClickModalBackground } =
     useRoomModal();
@@ -19,4 +19,4 @@ function RoomModal() {
     </ModalLayout>
   );
 }
-export default RoomModal;
+export default RoomModalContainer;
