@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchGameResult } from '@apis/api/game';
 import { useLocation } from 'react-router-dom';
-import { useGameResultCondition } from './useGameResultCondition';
+import { useGameResultCondition } from '../ResultOptions/useGameResultCondition';
 
 interface GameResultList {
   rank: number;
