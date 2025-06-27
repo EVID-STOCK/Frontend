@@ -32,7 +32,7 @@ export function useRoundEnd(
     }, 2300);
   };
 
-  const handleNextRound = () => {
+  const startNextRound = () => {
     openModal('hostGameModal', 'game');
     setTimer({ min: null, sec: null });
     sendMessage(`/app/game`, {
@@ -41,11 +41,11 @@ export function useRoundEnd(
     });
   };
 
-  const goNextRound = async () => {
+  const handleNextRound = async () => {
     const result = await updateNextRound(state.roomPW);
     if (result.status === 200) {
       if (result.data.data.state === 'next') {
-        handleNextRound();
+        startNextRound();
       } else {
         handleAllRoundsEnd();
       }
@@ -56,6 +56,6 @@ export function useRoundEnd(
 
   return {
     handleGoToResult,
-    goNextRound,
+    handleNextRound,
   };
 }

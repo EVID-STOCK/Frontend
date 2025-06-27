@@ -1,11 +1,13 @@
-import { currentRoundState } from '@states/host/roomSetState';
-import { useRecoilValue } from 'recoil';
 import { Timer } from 'types/room';
 import * as S from './styles';
 
-export default function ProgressModal({ timer }: { timer: Timer }) {
-  const round = useRecoilValue(currentRoundState); // 현재 라운드
-
+export default function ProgressModal({
+  timer,
+  round,
+}: {
+  timer: Timer;
+  round: number;
+}) {
   return (
     <S.ProgressModalConatiner>
       <img src="/images/loading-image.png" />

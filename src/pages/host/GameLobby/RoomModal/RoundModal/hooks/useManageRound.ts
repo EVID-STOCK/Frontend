@@ -3,19 +3,20 @@ import { NotifyRoundProps, Timer } from 'types/room';
 import convertSecondsToMinute from '@utils/convertSecondsToMinute';
 import { useLocation } from 'react-router-dom';
 import { currentRoundState } from '@states/host/roomSetState';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { postGameResult } from '@apis/api/game';
 import { networkErrorAlert } from '@utils/customAlert';
 import useModalState from '@hooks/useModalState';
 import { useSocket } from '@contexts/SocketContext';
 
-const useManageRound = () => {
+export const useManageRound = () => {
   const { state } = useLocation();
   // const navigate = useNavigate();
   const { registerCallback, sendMessage, isConnect } = useSocket();
   const [timer, setTimer] = useState<Timer>({ min: null, sec: null });
   const setRound = useSetRecoilState(currentRoundState);
   const { openModal, state: modalState } = useModalState();
+  const round = useRecoilValue(currentRoundState); // 현재 라운드
 
   // 게임 결과 저장하기
   const saveGameResult = async (currentRound: number) => {
@@ -65,7 +66,5 @@ const useManageRound = () => {
     });
   }, [isConnect, state.roomPW]);
 
-  return { modalState, timer, setTimer };
+  return { modalState, timer, setTimer, round };
 };
-
-export default useManageRound;
