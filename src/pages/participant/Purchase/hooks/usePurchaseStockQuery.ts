@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { postPurchaseStock } from '@apis/api/wallet';
+import { purchaseStock } from '@apis/api/wallet';
 import { defaultAlert, networkErrorAlert } from '@utils/customAlert';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export const usePurchaseStockQuery = () => {
     }: {
       stockId: number;
       purchaseInfo: { purchase_num: number; pwd: string };
-    }) => postPurchaseStock(stockId, purchaseInfo),
+    }) => purchaseStock(stockId, purchaseInfo),
     {
       onSuccess: (data) => {
         const executedPrice = data.data.executedPrice; // 체결된 가격

@@ -9,7 +9,6 @@ import { defaultInstance } from '../utils/instance';
 import { ApiResponse } from '../types/api.types';
 import { Stock } from 'types/stock';
 
-// 유저 정보(유저 정보 + 유저 주식 정보) 가져오기
 export const fetchUserInfo = async (
   roomCode: string
 ): Promise<ApiResponse<UserInfoResponse>> => {
@@ -17,7 +16,6 @@ export const fetchUserInfo = async (
   return response.data;
 };
 
-// 종목 리스트 가져오기
 export const getStockList = async (
   roomCode: string
 ): Promise<ApiResponse<Stock[]>> => {
@@ -25,7 +23,6 @@ export const getStockList = async (
   return response.data;
 };
 
-// 뉴스 리스트 가져오기
 export const fetchNewsList = async (
   roomCode: string
 ): Promise<ApiResponse<NewsListResponse>> => {
@@ -33,8 +30,7 @@ export const fetchNewsList = async (
   return response.data;
 };
 
-// 매수하기
-export const postPurchaseStock = async (
+export const purchaseStock = async (
   id: number,
   purchaseInfo: PurchaseStock
 ): Promise<PurchaseStockResponse> => {
@@ -46,8 +42,7 @@ export const postPurchaseStock = async (
   }
 };
 
-// 매도하기
-export const deleteSellStock = async (id: number, sellInfo: SellStock) => {
+export const sellStock = async (id: number, sellInfo: SellStock) => {
   try {
     const response = await defaultInstance.delete(`/stocks/${id}`, {
       data: sellInfo,

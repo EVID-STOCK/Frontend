@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { deleteSellStock } from '@apis/api/wallet';
+import { sellStock } from '@apis/api/wallet';
 import { defaultAlert, networkErrorAlert } from '@utils/customAlert';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export const useSellStockQuery = () => {
     }: {
       stockId: number;
       sellInfo: { sell_num: number; pwd: string };
-    }) => deleteSellStock(stockId, sellInfo),
+    }) => sellStock(stockId, sellInfo),
     {
       onSuccess: (data) => {
         const executedPrice = data.data.executedPrice; // 체결된 가격
