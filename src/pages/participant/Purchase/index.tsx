@@ -1,4 +1,4 @@
-import Timer from '../features/Timer';
+import Timer from '../components/Timer';
 import Header from '../components/ParticipantHeader';
 import Keypad from '../components/Keypad';
 import ActionButton from '../components/ActionButton';

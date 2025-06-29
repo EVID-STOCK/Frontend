@@ -1,4 +1,4 @@
-import Timer from '../features/Timer';
+import Timer from '../components/Timer';
 import Wallet from './Wallet';
 import News from './News';
 import Stock from './Stock';

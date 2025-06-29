@@ -1,5 +1,5 @@
 import Header from '../components/ParticipantHeader';
-import Timer from '../features/Timer';
+import Timer from '../components/Timer';
 import Keypad from '../components/Keypad';
 import ActionButton from '../components/ActionButton';
 import SellSummaryPanel from './SellSummaryPanel';
