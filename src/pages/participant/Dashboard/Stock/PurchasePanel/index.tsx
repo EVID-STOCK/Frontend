@@ -1,4 +1,4 @@
-import LineChart from '@pages/participant/Dashboard/features/StockChart';
+import LineChart from '@pages/participant/Dashboard/components/StockChart';
 import ActionButton from '@pages/participant/components/ActionButton';
 import * as S from './styles';
 import usePurchasePanel from './usePurchasePanel';

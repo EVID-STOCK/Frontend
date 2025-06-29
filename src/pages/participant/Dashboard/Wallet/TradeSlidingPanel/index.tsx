@@ -1,5 +1,5 @@
 import ActionButton from '@pages/participant/components/ActionButton';
-import LineChart from '@pages/participant/Dashboard/features/StockChart';
+import LineChart from '@pages/participant/Dashboard/components/StockChart';
 
 import * as S from './styles';
 import useTradeSlidingPanel from './useTradeSlidingPanel';
