@@ -4,6 +4,7 @@ import {
   PurchaseStock,
   PurchaseStockResponse,
   SellStock,
+  SellStockResponse,
 } from '../types/wallet.types';
 import { defaultInstance } from '../utils/instance';
 import { ApiResponse } from '../types/api.types';
@@ -33,22 +34,17 @@ export const fetchNewsList = async (
 export const purchaseStock = async (
   id: number,
   purchaseInfo: PurchaseStock
-): Promise<PurchaseStockResponse> => {
-  try {
-    const response = await defaultInstance.post(`/stocks/${id}`, purchaseInfo);
-    return response.data;
-  } catch (e: any) {
-    throw new Error(e.response?.data?.error || '알 수 없는 오류');
-  }
+): Promise<ApiResponse<PurchaseStockResponse>> => {
+  const response = await defaultInstance.post(`/stocks/${id}`, purchaseInfo);
+  return response.data;
 };
 
-export const sellStock = async (id: number, sellInfo: SellStock) => {
-  try {
-    const response = await defaultInstance.delete(`/stocks/${id}`, {
-      data: sellInfo,
-    });
-    return response.data;
-  } catch (e: any) {
-    throw new Error(e.response?.data?.error || '알 수 없는 오류');
-  }
+export const sellStock = async (
+  id: number,
+  sellInfo: SellStock
+): Promise<ApiResponse<SellStockResponse>> => {
+  const response = await defaultInstance.delete(`/stocks/${id}`, {
+    data: sellInfo,
+  });
+  return response.data;
 };

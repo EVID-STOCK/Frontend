@@ -17,11 +17,16 @@ export interface PurchaseStock {
 }
 
 export interface PurchaseStockResponse {
-  data: { executedPrice: number; message: string };
-  status: number;
+  executedPrice: number;
+  message: string;
 }
 
 export interface SellStock {
   sell_num: number;
   pwd: string;
+}
+
+export interface SellStockResponse {
+  executedPrice: number;
+  message: string;
 }
