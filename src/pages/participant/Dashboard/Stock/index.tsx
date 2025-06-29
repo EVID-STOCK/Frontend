@@ -1,10 +1,10 @@
 import React from 'react';
-import SlidingPanel from '@pages/participant/Dashboard/features/SlidingPanel';
 import PurchasePanel from '@pages/participant/Dashboard/Stock/PurchasePanel';
 import StockListItem from './components/StockListItem';
 import * as S from './styles';
 import useStock from './hooks/useStock';
 import useGetStockListQuery from './hooks/useGetStockListQuery';
+import SlidingPanel from '../components/SlidingPanel';
 
 function Stock() {
   const { data: stockListData } = useGetStockListQuery();

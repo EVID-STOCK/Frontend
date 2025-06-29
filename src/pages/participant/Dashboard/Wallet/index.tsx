@@ -2,8 +2,8 @@ import React from 'react';
 import Profile from './Profile';
 import AssetInfo from './AssetInfo';
 import StockList from './StockList';
-import SlidingPanel from '../features/SlidingPanel';
 import TradingSlidingPanel from './TradeSlidingPanel';
+import SlidingPanel from '../components/SlidingPanel';
 
 function Wallet() {
   return (
