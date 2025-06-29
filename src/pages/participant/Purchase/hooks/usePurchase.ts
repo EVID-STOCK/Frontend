@@ -1,4 +1,4 @@
-import { PurchaseError } from '@errors/PurchaseError';
+import { PurchaseError } from '@pages/participant/Purchase/errors/PurchaseError';
 import { usePurchaseStockQuery } from '@pages/participant/Purchase/hooks/usePurchaseStockQuery';
 import useSlidingPanel from '@hooks/useSlidingPanel';
 import { useUser } from '@hooks/queries/useUserQuery';

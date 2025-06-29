@@ -5,7 +5,7 @@ import { roomCodeState } from '@states/host/roomSetState';
 import useSlidingPanel from '@hooks/useSlidingPanel';
 import { useSellStockQuery } from '@pages/participant/Sell/hooks/useSellStockQuery';
 import { NoticeAlert } from '@utils/customAlert';
-import { SellError } from '@errors/SellError';
+import { SellError } from '@pages/participant/Sell/errors/SellError';
 
 export interface Notice {
   available: boolean | null;
