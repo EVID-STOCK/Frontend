@@ -1,6 +1,7 @@
 export interface CreateGameRoomResponse {
   roomCode: string;
 }
+export interface UpdateRoomSettingsResponse {}
 
 export interface Participant {
   isHost: boolean;
