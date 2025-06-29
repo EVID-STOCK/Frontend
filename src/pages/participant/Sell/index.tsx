@@ -3,7 +3,7 @@ import Timer from '../features/Timer';
 import Keypad from '../components/Keypad';
 import ActionButton from '../components/ActionButton';
 import SellSummaryPanel from './SellSummaryPanel';
-import useSell from './useSell';
+import useSell from './hooks/useSell';
 import * as S from './styles';
 
 export default function SellPage() {

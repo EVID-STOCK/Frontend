@@ -1,5 +1,5 @@
 import { PurchaseError } from '@errors/PurchaseError';
-import { usePurchaseStockQuery } from '@hooks/usePurchaseStockQuery';
+import { usePurchaseStockQuery } from '@pages/participant/Purchase/hooks/usePurchaseStockQuery';
 import useSlidingPanel from '@hooks/useSlidingPanel';
 import { useUser } from '@hooks/useUserQuery';
 import { roomCodeState } from '@states/host/roomSetState';

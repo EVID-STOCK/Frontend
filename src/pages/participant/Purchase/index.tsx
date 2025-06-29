@@ -3,7 +3,7 @@ import Header from '../components/ParticipantHeader';
 import Keypad from '../components/Keypad';
 import ActionButton from '../components/ActionButton';
 import PurchaseSummaryPanel from './PurchaseSummaryPanel';
-import usePurchase from './usePurchase';
+import usePurchase from './hooks/usePurchase';
 import * as S from './styles';
 
 export default function PurchasePage() {

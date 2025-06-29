@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { selectedCompanyStockState } from '@states/participant/modalState';
 import { useUser } from '@hooks/useUserQuery';
-import { Notice } from '@pages/participant/Purchase/usePurchase';
+import { Notice } from '@pages/participant/Purchase/hooks/usePurchase';
 import * as S from './styles';
 
 export default function PurchaseSummaryPanel({

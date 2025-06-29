@@ -1,7 +1,7 @@
 import { useUser } from '@hooks/useUserQuery';
 import { selectedCompanyStockState } from '@states/participant/modalState';
 import { useRecoilValue } from 'recoil';
-import { Notice } from '../useSell';
+import { Notice } from '../hooks/useSell';
 import * as S from './styles';
 
 export default function SellSummaryPanel({

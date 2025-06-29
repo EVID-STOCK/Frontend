@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { selectedCompanyStockState } from '@states/participant/modalState';
 import { roomCodeState } from '@states/host/roomSetState';
 import useSlidingPanel from '@hooks/useSlidingPanel';
-import { useSellStockQuery } from '@hooks/useSellStockQuery';
+import { useSellStockQuery } from '@pages/participant/Sell/hooks/useSellStockQuery';
 import { NoticeAlert } from '@utils/customAlert';
 import { SellError } from '@errors/SellError';
 
