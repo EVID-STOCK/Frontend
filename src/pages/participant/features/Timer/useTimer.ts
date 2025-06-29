@@ -4,8 +4,6 @@ import {
   roomCodeState,
   roomSetState,
 } from '@states/host/roomSetState';
-import styled from 'styled-components';
-import React, { useEffect } from 'react';
 import convertSecondsToMinute from '@utils/convertSecondsToMinute';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
@@ -13,8 +11,9 @@ import useModalState from '@hooks/useModalState';
 import useSlidingPanel from '@hooks/useSlidingPanel';
 import { timerState } from '@states/timerState';
 import { useSocket } from '@contexts/SocketContext';
+import { useEffect } from 'react';
 
-function Timer() {
+export default function useTimer() {
   const navigate = useNavigate();
   const { sendMessage, registerCallback, isConnect } = useSocket();
   const round = useRecoilValue(currentRoundState); // 현재 라운드
@@ -73,36 +72,9 @@ function Timer() {
     registerCallback('STOCK_GRAPH', handleUpdateStockGraph);
   }, [isConnect]);
 
-  return (
-    <TimerSection>
-      <p>
-        {/* 1라운드 당시에는 roundNum에 아무 값도 들어있지 않음. */}
-        {round} / {roomSetting.roundNum} 라운드
-      </p>
-      <p>
-        {timer.min !== null && timer.sec !== null
-          ? timer.min + ':' + timer.sec
-          : '00:00'}
-      </p>
-    </TimerSection>
-  );
+  return {
+    round,
+    timer,
+    roomSetting,
+  };
 }
-
-export default React.memo(Timer);
-
-const TimerSection = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffffff;
-  padding: 0.7rem 2.4rem;
-  border-radius: 1.6rem;
-
-  & > p {
-    color: #000000;
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-`;

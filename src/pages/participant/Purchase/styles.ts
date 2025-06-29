@@ -1,23 +1,23 @@
-import { keyframes, styled } from 'styled-components';
+import { css, keyframes, styled } from 'styled-components';
 
 const up_slide = () => keyframes`
-  from {
-    transform: translateY(100px);
-    opacity: 0;
-  }
+from {
+  transform: translateY(100px);
+  opacity: 0;
+}
 
-  to {
-    transform:translateY(0px);
-    opacity: 1;
-  }
+to {
+  transform:translateY(0px);
+  opacity: 1;
+}
 `;
 
-export const SellContainer = styled.div`
+export const PurchaseContainer = styled.div`
   min-height: 100vh;
   background-color: #ececec;
 `;
 
-export const SellMainContainer = styled.main`
+export const PurchaseMainContainer = styled.main`
   display: flex;
   flex-direction: column;
   width: 100%;
