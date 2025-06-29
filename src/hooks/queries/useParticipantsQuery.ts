@@ -1,14 +1,14 @@
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { roomCodeState } from '@states/host/roomSetState';
-import { fetchParticipantList } from '@apis/api/game';
+import { fetchParticipants } from '@apis/api/game';
 
 export const useGetParticipantsQuery = () => {
   const roomCode = useRecoilValue(roomCodeState);
 
   return useQuery(
     ['participants', roomCode],
-    () => fetchParticipantList(roomCode!),
+    () => fetchParticipants(roomCode!),
     {
       placeholderData: {
         success: true,

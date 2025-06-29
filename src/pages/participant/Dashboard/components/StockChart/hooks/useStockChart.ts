@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { roomCodeState } from '@states/host/roomSetState';
-import { fetchRoomInfo } from '@apis/api/game';
+import { fetchRoomSettings } from '@apis/api/game';
 import { Context } from 'chartjs-plugin-datalabels';
 import useGetStockGraphQuery from './useGetStockGraphQuery';
 
@@ -130,7 +130,7 @@ export default function useStockChart() {
 
   const getRoomInfo = async () => {
     if (!persistRoomCode) return;
-    const { data: roomData } = await fetchRoomInfo(persistRoomCode);
+    const { data: roomData } = await fetchRoomSettings(persistRoomCode);
     setSeconds(roomData.data.timeLimit);
   };
 

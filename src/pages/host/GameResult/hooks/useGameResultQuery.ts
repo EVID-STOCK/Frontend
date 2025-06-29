@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchGameResult } from '@apis/api/game';
+import { fetchGameResults } from '@apis/api/game';
 import { useLocation } from 'react-router-dom';
 import { useGameResultCondition } from '../ResultOptions/useGameResultCondition';
 
@@ -18,7 +18,7 @@ export function useGameResultQuery() {
 
   useEffect(() => {
     const getGameResult = async () => {
-      const res = await fetchGameResult(
+      const res = await fetchGameResults(
         state.roomPW,
         condition.round,
         condition.opt

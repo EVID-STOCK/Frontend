@@ -4,7 +4,7 @@ import convertSecondsToMinute from '@utils/convertSecondsToMinute';
 import { useLocation } from 'react-router-dom';
 import { currentRoundState } from '@states/host/roomSetState';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { postGameResult } from '@apis/api/game';
+import { saveGameResults } from '@apis/api/game';
 import { networkErrorAlert } from '@utils/customAlert';
 import useModalState from '@hooks/useModalState';
 import { useSocket } from '@contexts/SocketContext';
@@ -31,7 +31,7 @@ export const useManageRound = () => {
     //   }, 1000);
     //   return;
     // }
-    const result = await postGameResult(state.roomPW, {
+    const result = await saveGameResults(state.roomPW, {
       round_num: currentRound,
     });
     if (result.status === 200) {

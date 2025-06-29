@@ -4,8 +4,7 @@ import { defaultInstance } from '../utils/instance';
 import { ApiResponse } from '@apis/types/api.types';
 import { ParticipantListResponse } from '@apis/types/stock.types';
 
-// 게임방 비밀번호 가져오기
-export const getGameRoomPassword = async () => {
+export const createGameRoom = async () => {
   try {
     const { data, status } = await defaultInstance.post(`/rooms`);
     return { ...data, status };
@@ -21,8 +20,7 @@ export const getGameRoomPassword = async () => {
   }
 };
 
-// 게임방 정보 업데이트하기
-export const updateRoomInfo = async (roomPW: string, roomInfo: RoomSet) => {
+export const updateRoomSettings = async (roomPW: string, roomInfo: RoomSet) => {
   try {
     const { data, status } = await defaultInstance.put(
       `/rooms/${roomPW}`,
@@ -41,8 +39,7 @@ export const updateRoomInfo = async (roomPW: string, roomInfo: RoomSet) => {
   }
 };
 
-// 게임방 정보 가져오기
-export const fetchRoomInfo = async (roomPW: string) => {
+export const fetchRoomSettings = async (roomPW: string) => {
   try {
     const { data, status } = await defaultInstance.get(
       `/rooms/${roomPW}/setting`
@@ -60,15 +57,13 @@ export const fetchRoomInfo = async (roomPW: string) => {
   }
 };
 
-// 참여자 리스트 가져오기
-export const fetchParticipantList = async (
+export const fetchParticipants = async (
   roomPW: string
 ): Promise<ApiResponse<ParticipantListResponse>> => {
   const response = await defaultInstance.get(`/rooms/${roomPW}/participants`);
   return response.data;
 };
 
-// 게임방 제거하기
 export const deleteGameRoom = async (roomPW: string) => {
   try {
     const { data, status } = await defaultInstance.delete(`/rooms/${roomPW}`);
@@ -90,8 +85,7 @@ interface StudentInfo {
   profileNum: number; // 프로필
 }
 
-// 학생들 정보 생성 후 게임방에 참여시키기
-export const participateGameRoom = async (
+export const joinGameRoom = async (
   roomPW: string,
   studentInfo: StudentInfo
 ) => {
@@ -113,7 +107,6 @@ export const participateGameRoom = async (
   }
 };
 
-// 게임방 나가기
 export const leaveGameRoom = async (roomPW: string) => {
   try {
     const { data, status } = await defaultInstance.delete(`/users/${roomPW}`);
@@ -130,7 +123,6 @@ export const leaveGameRoom = async (roomPW: string) => {
   }
 };
 
-// 게임방 다음 라운드로 넘어가기
 export const updateNextRound = async (roomPW: string) => {
   try {
     const { data, status } = await defaultInstance.put(`/games/${roomPW}/next`);
@@ -147,8 +139,7 @@ export const updateNextRound = async (roomPW: string) => {
   }
 };
 
-// 게임 결과 조회하기
-export const checkGameResult = async (
+export const fetchGameResults = async (
   roomPW: string,
   round: number,
   opt: number
@@ -170,8 +161,7 @@ export const checkGameResult = async (
   }
 };
 
-// 게임 결과 저장하기
-export const postGameResult = async (
+export const saveGameResults = async (
   roomPW: string,
   round: { round_num: number }
 ) => {

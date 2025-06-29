@@ -1,4 +1,4 @@
-import { participateGameRoom } from '@apis/api/game';
+import { joinGameRoom } from '@apis/api/game';
 import { useSocket } from '@contexts/SocketContext';
 import { roomCodeState as persistRoomCodeState } from '@states/host/roomSetState';
 import { roomCodeCompareState, roomCodeState } from '../states/roomCodeState';
@@ -64,7 +64,7 @@ export default function useSetRoomCode() {
     setRoomCode((prev) => ({ ...prev, state: true }));
     setTimeout(async () => {
       // 일치하는 방을 찾고 유저를 해당 방에 참여시킴.
-      const result = await participateGameRoom(roomCode.value, {
+      const result = await joinGameRoom(roomCode.value, {
         userName: name.value,
         profileNum: selectedProfile,
       });

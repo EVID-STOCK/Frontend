@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { defaultAlert, networkErrorAlert } from '@utils/customAlert';
-import { updateRoomInfo } from '@apis/api/game';
+import { updateRoomSettings } from '@apis/api/game';
 import { RoomSet } from 'types/room';
 import { useRecoilValue } from 'recoil';
 import { roomSetState } from '@states/host/roomSetState';
@@ -23,7 +23,10 @@ export default function useGameStart(participantLength: number) {
       defaultAlert('인원이 부족합니다');
       return;
     }
-    const result = await updateRoomInfo(state.roomPW, roomSetting as RoomSet);
+    const result = await updateRoomSettings(
+      state.roomPW,
+      roomSetting as RoomSet
+    );
     if (result.status === 200) {
       if (!isConnect) {
         networkErrorAlert('연결이 불안정합니다. 다시 시도해주세요');

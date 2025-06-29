@@ -1,4 +1,4 @@
-import { getGameRoomPassword } from '@apis/api/game';
+import { createGameRoom } from '@apis/api/game';
 import { roomCodeState } from '@states/host/roomSetState';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
@@ -8,7 +8,7 @@ const useCreateRoom = () => {
   const setRoomCode = useSetRecoilState(roomCodeState);
 
   const handleClickCreateRoomButton = async () => {
-    const response = await getGameRoomPassword();
+    const response = await createGameRoom();
     if (response.status === 200) {
       setRoomCode(response.data.roomCode);
       navigate('/host/room/wait', {
