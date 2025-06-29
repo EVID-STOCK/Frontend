@@ -55,7 +55,9 @@ export const TradingSlidingPanelContainer = styled.div<{ $visible: boolean }>`
   }
 `;
 
-export const StockPriceContainer = styled.div<{ $color: string }>`
+export const StockPriceContainer = styled.div<{
+  $color: string;
+}>`
   display: flex;
   flex-direction: column;
   width: 100%;
