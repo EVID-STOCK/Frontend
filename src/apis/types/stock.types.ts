@@ -1,10 +1,3 @@
-export interface Participant {
-  isHost: boolean;
-  profileNum: 0 | 1 | 2;
-  userId: number;
-  userName: string;
-}
-
-export interface ParticipantListResponse {
-  participants: Participant[];
+export interface StockGraphPoint {
+  stockPrice: number;
 }

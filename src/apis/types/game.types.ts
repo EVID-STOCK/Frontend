@@ -1,9 +1,10 @@
-export interface StockGraphPoint {
-  stockPrice: number;
+export interface Participant {
+  isHost: boolean;
+  profileNum: 0 | 1 | 2;
+  userId: number;
+  userName: string;
 }
 
-export interface StockGraphResponse {
-  data: StockGraphPoint[];
-  message: string;
-  success: boolean;
+export interface ParticipantListResponse {
+  participants: Participant[];
 }

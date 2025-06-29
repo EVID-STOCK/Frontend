@@ -2,7 +2,7 @@
 import { RoomSet } from 'types/room';
 import { defaultInstance } from '../utils/instance';
 import { ApiResponse } from '@apis/types/api.types';
-import { ParticipantListResponse } from '@apis/types/stock.types';
+import { ParticipantListResponse } from '@apis/types/game.types';
 
 export const createGameRoom = async () => {
   try {
