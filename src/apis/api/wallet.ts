@@ -26,7 +26,7 @@ export const getStockList = async (
 };
 
 // 뉴스 리스트 가져오기
-export const getNewsList = async (
+export const fetchNewsList = async (
   roomCode: string
 ): Promise<ApiResponse<NewsListResponse>> => {
   const response = await defaultInstance.get(`/news?pwd=${roomCode}`);
