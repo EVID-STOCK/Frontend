@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ListItem = styled.li<{ $color: string }>`
+export const StockListItem = styled.li<{ $color: string }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

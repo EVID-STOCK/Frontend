@@ -1,7 +1,7 @@
 import { selectedCompanyStockState } from '@states/participant/modalState';
 import { useSetRecoilState } from 'recoil';
-import * as S from './styles';
 import useSlidingPanel from '@hooks/useSlidingPanel';
+import * as S from './styles';
 
 interface Stock {
   companyName: string;
@@ -34,7 +34,7 @@ function StockListItem({
   };
 
   return (
-    <S.ListItem
+    <S.StockListItem
       $color={percent > 0 ? 'red' : percent === 0 ? 'black' : 'blue'}
       key={companyName}
       onClick={handleClickStockListItem}
@@ -46,7 +46,7 @@ function StockListItem({
         <p>{currentPrice.toLocaleString('ko-KR')}</p>
         <p>{percent}%</p>
       </div>
-    </S.ListItem>
+    </S.StockListItem>
   );
 }
 
