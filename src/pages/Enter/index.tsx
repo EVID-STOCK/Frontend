@@ -13,7 +13,7 @@ export default function Enter() {
   const handleClickParticipant = () => {
     import('@pages/participant/Home');
     import('@pages/participant/Dashboard');
-    import('@pages/participant/Buy');
+    import('@pages/participant/Purchase');
     import('@pages/participant/Sell');
     navigate('/participant');
   };

@@ -1,11 +1,11 @@
 import ErrorBoundaryWrapper from '@utils/ErrorBoundaryWrapper';
 import ParticipantProtectedRoutes from '@utils/ParticipantProtectedRoutes';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 const ParticipantHome = lazy(() => import('@pages/participant/Home'));
 const Dashboard = lazy(() => import('@pages/participant/Dashboard'));
-const Buy = lazy(() => import('@pages/participant/Buy'));
+const Purchase = lazy(() => import('@pages/participant/Purchase'));
 const Sell = lazy(() => import('@pages/participant/Sell'));
 
 export default function PariticipantRoutes() {
@@ -15,7 +15,7 @@ export default function PariticipantRoutes() {
       <Route element={<ErrorBoundaryWrapper />}>
         <Route element={<ParticipantProtectedRoutes />}>
           <Route path="wallet" element={<Dashboard />} />
-          <Route path="purchase" element={<Buy />} />
+          <Route path="purchase" element={<Purchase />} />
           <Route path="sell" element={<Sell />} />
         </Route>
       </Route>
