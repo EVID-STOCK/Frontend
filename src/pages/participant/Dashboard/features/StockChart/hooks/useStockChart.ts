@@ -1,61 +1,16 @@
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import styled from 'styled-components';
-import React, { useEffect, useRef, useState } from 'react';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { selectedCompanyStockState } from '@states/participant/modalState';
 import { roomCodeState } from '@states/host/roomSetState';
 import { fetchRoomInfo } from '@apis/api/game';
-import { fetchStockGraph } from '@apis/api/stock';
-import { useQuery } from 'react-query';
 import { Context } from 'chartjs-plugin-datalabels';
+import useGetStockGraphQuery from './useGetStockGraphQuery';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  ChartDataLabels
-);
-
-function LineChart() {
+export default function useStockChart() {
   const chartRef = useRef(null);
   const [seconds, setSeconds] = useState(0);
-  const companyStock = useRecoilValue(selectedCompanyStockState);
   const persistRoomCode = useRecoilValue(roomCodeState);
-
-  const getRoomInfo = async () => {
-    if (!persistRoomCode) return;
-    const { data: roomData } = await fetchRoomInfo(persistRoomCode);
-    setSeconds(roomData.data.timeLimit);
-  };
-
-  const { data: stockGraphData = [], isLoading } = useQuery(
-    ['stockGraph', companyStock.id],
-    () => fetchStockGraph(persistRoomCode!, companyStock.id!),
-    {
-      enabled: !!companyStock.id && !!persistRoomCode,
-      refetchOnWindowFocus: false,
-      select: (result) => Object.values(result.data).map((x) => x.stockPrice),
-    }
-  );
-
-  useEffect(() => {
-    getRoomInfo();
-  }, []);
+  const { data: stockGraphData = [], isLoading } = useGetStockGraphQuery();
+  const isHavaStockGraphData = stockGraphData.length > 0;
 
   const splitTime = (seconds: number) => {
     const timeList = [];
@@ -74,7 +29,7 @@ function LineChart() {
     datasets: [
       {
         label: '주가',
-        data: stockGraphData ? stockGraphData : [],
+        data: stockGraphData,
         borderColor: (context: any) => {
           const chart = context.chart;
           const ctx = chart.ctx;
@@ -101,9 +56,9 @@ function LineChart() {
       },
       datalabels: {
         formatter: function (value: number, context: Context) {
-          const data = stockGraphData ?? [];
-          const max = Math.max(...data);
-          const min = Math.min(...data);
+          const data = stockGraphData;
+          const max = isHavaStockGraphData ? Math.max(...data) : 0;
+          const min = isHavaStockGraphData ? Math.min(...data) : 0;
 
           const lastMaxIndex = data.lastIndexOf(max);
           const lastMinIndex = data.lastIndexOf(min);
@@ -137,13 +92,12 @@ function LineChart() {
       y: {
         display: false,
         // borderWidth: 0,
-        min: stockGraphData
+        min: isHavaStockGraphData
           ? Math.min(...stockGraphData) - Math.max(...stockGraphData) / 5
           : 0,
-        // 최소값
-        max: stockGraphData
+        max: isHavaStockGraphData
           ? Math.max(...stockGraphData) + Math.max(...stockGraphData) / 5
-          : 0, // 최대값
+          : 0,
         beginAtZero: false, // Y축 0부터 시작하지 않음
         grid: {
           display: true, // 그리드 표시
@@ -167,52 +121,29 @@ function LineChart() {
     },
   };
 
-  return (
-    <>
-      <LineChartContainer>
-        {isLoading ? (
-          <>Loading</>
-        ) : (
-          <>
-            <Label>
-              <p>최고 {Math.max(...stockGraphData).toLocaleString('ko')}</p>
-              <p>최저 {Math.min(...stockGraphData).toLocaleString('ko')}</p>
-            </Label>
-            <Line
-              ref={chartRef}
-              data={chartData}
-              options={options}
-              plugins={[ChartDataLabels]}
-            />
-            <Notice>30초마다 갱신됩니다</Notice>
-          </>
-        )}
-      </LineChartContainer>
-    </>
-  );
+  const maxValue = isHavaStockGraphData
+    ? Math.max(...stockGraphData).toLocaleString('ko')
+    : 0;
+  const minValue = isHavaStockGraphData
+    ? Math.min(...stockGraphData).toLocaleString('ko')
+    : 0;
+
+  const getRoomInfo = async () => {
+    if (!persistRoomCode) return;
+    const { data: roomData } = await fetchRoomInfo(persistRoomCode);
+    setSeconds(roomData.data.timeLimit);
+  };
+
+  useEffect(() => {
+    getRoomInfo();
+  }, []);
+
+  return {
+    chartRef,
+    chartData,
+    options,
+    maxValue,
+    minValue,
+    isLoading,
+  };
 }
-
-export default React.memo(LineChart);
-
-const Label = styled.div`
-  position: absolute;
-  right: 20px;
-  top: 5px;
-  font-size: 1.1rem;
-`;
-
-const LineChartContainer = styled.div`
-  width: 100%;
-  height: 50%;
-  padding: 20px 20px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Notice = styled.p`
-  padding-top: 10px;
-  font-size: 1.1rem;
-  color: #686868;
-  align-self: self-end;
-`;
