@@ -1,4 +1,4 @@
-import { useUser } from '@hooks/useUserQuery';
+import { useUser } from '@hooks/queries/useUserQuery';
 import { useEffect, useState } from 'react';
 import { ExistStock } from 'types/stock';
 

@@ -1,4 +1,4 @@
-import { useUser } from '@hooks/useUserQuery';
+import { useUser } from '@hooks/queries/useUserQuery';
 import { roomCodeState } from '@states/host/roomSetState';
 import { Outlet } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';

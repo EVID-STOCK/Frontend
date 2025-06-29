@@ -1,4 +1,4 @@
-import { useUser } from '@hooks/useUserQuery';
+import { useUser } from '@hooks/queries/useUserQuery';
 import React from 'react';
 import * as S from './styles';
 

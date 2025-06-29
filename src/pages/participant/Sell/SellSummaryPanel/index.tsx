@@ -1,4 +1,4 @@
-import { useUser } from '@hooks/useUserQuery';
+import { useUser } from '@hooks/queries/useUserQuery';
 import { selectedCompanyStockState } from '@states/participant/modalState';
 import { useRecoilValue } from 'recoil';
 import { Notice } from '../hooks/useSell';
