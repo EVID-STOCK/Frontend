@@ -1,23 +1,22 @@
 import { createGameRoom } from '@apis/api/game';
 import { roomCodeState } from '@states/host/roomSetState';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
-const useCreateRoom = () => {
+export const useCreateRoomQuery = () => {
   const navigate = useNavigate();
   const setRoomCode = useSetRecoilState(roomCodeState);
 
-  const handleClickCreateRoomButton = async () => {
-    const response = await createGameRoom();
-    if (response.status === 200) {
-      setRoomCode(response.data.roomCode);
+  return useMutation(() => createGameRoom(), {
+    onSuccess: (data) => {
+      setRoomCode(data.data.roomCode);
       navigate('/host/room/wait', {
-        state: { roomPW: response.data.roomCode },
+        state: { roomPW: data.data.roomCode },
       });
-    }
-  };
-
-  return { handleClickCreateRoomButton };
+    },
+    onError: (error) => {
+      console.error('에러:', error);
+    },
+  });
 };
-
-export default useCreateRoom;

@@ -6,7 +6,7 @@ export const networkErrorAlert = (
   Swal.fire({
     position: 'top-end',
     title: `${content}`,
-    imageUrl: '/images/errorImage.png',
+    imageUrl: '/images/error-image.png',
     imageWidth: 100,
     imageHeight: 100,
     showConfirmButton: false,

@@ -2,22 +2,16 @@
 import { RoomSet } from 'types/room';
 import { defaultInstance } from '../utils/instance';
 import { ApiResponse } from '@apis/types/api.types';
-import { ParticipantListResponse } from '@apis/types/game.types';
+import {
+  CreateGameRoomResponse,
+  ParticipantListResponse,
+} from '@apis/types/game.types';
 
-export const createGameRoom = async () => {
-  try {
-    const { data, status } = await defaultInstance.post(`/rooms`);
-    return { ...data, status };
-  } catch (e: any) {
-    if (e.response) {
-      return e.response.data;
-    } else {
-      return {
-        status: null,
-        message: '서버에 연결할 수 없습니다.',
-      };
-    }
-  }
+export const createGameRoom = async (): Promise<
+  ApiResponse<CreateGameRoomResponse>
+> => {
+  const response = await defaultInstance.post(`/roomss`);
+  return response.data;
 };
 
 export const updateRoomSettings = async (roomPW: string, roomInfo: RoomSet) => {
