@@ -146,7 +146,10 @@ export const fetchGameResults = async (
 ) => {
   try {
     const { data, status } = await defaultInstance.get(
-      `/games/${roomPW}/result?round=${round}&opt=${opt}`
+      `/games/${roomPW}/result`,
+      {
+        params: { round, opt },
+      }
     );
     return { data, status };
   } catch (e: any) {

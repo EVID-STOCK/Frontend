@@ -20,14 +20,18 @@ export const fetchUserInfo = async (
 export const getStockList = async (
   roomCode: string
 ): Promise<ApiResponse<Stock[]>> => {
-  const response = await defaultInstance.get(`/stocks?pwd=${roomCode}`);
+  const response = await defaultInstance.get(`/stocks`, {
+    params: { pwd: roomCode },
+  });
   return response.data;
 };
 
 export const fetchNewsList = async (
   roomCode: string
 ): Promise<ApiResponse<NewsListResponse>> => {
-  const response = await defaultInstance.get(`/news?pwd=${roomCode}`);
+  const response = await defaultInstance.get(`/news`, {
+    params: { pwd: roomCode },
+  });
   return response.data;
 };
 
