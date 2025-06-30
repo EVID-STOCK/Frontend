@@ -1,4 +1,3 @@
-import { leaveGameRoom } from '@apis/api/game';
 import { useSocket } from '@contexts/SocketContext';
 import {
   currentRoundState,
@@ -18,7 +17,7 @@ export default function useRoomLeave({
   initialRoomCodeCompare: () => void;
 }) {
   const { allowSlidePrev } = useSwiper();
-  const { sendMessage, isConnect } = useSocket();
+  const { isConnect } = useSocket();
   const [roomCode, setPersistRoomCode] = useRecoilState(roomCodeState);
 
   const resetSelectedCompanyStockState = useResetRecoilState(
