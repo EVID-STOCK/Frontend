@@ -13,6 +13,13 @@ export interface FetchRoomSettingsResponse {
 
 export interface DeleteGameRoomResponse {}
 
+export interface StudentInfo {
+  userName: string;
+  profileNum: number;
+}
+
+export interface JoinGameRoomResponse {}
+
 export interface Participant {
   isHost: boolean;
   profileNum: 0 | 1 | 2;

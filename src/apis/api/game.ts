@@ -6,7 +6,9 @@ import {
   CreateGameRoomResponse,
   DeleteGameRoomResponse,
   FetchRoomSettingsResponse,
+  JoinGameRoomResponse,
   ParticipantListResponse,
+  StudentInfo,
   UpdateRoomSettingsResponse,
 } from '@apis/types/game.types';
 
@@ -46,31 +48,12 @@ export const deleteGameRoom = async (
   return response.data;
 };
 
-interface StudentInfo {
-  userName: string; // 이름
-  profileNum: number; // 프로필
-}
-
 export const joinGameRoom = async (
   roomPW: string,
   studentInfo: StudentInfo
-) => {
-  try {
-    const response = await defaultInstance.post(
-      `/users/${roomPW}`,
-      studentInfo
-    );
-    return response;
-  } catch (e: any) {
-    if (e.response) {
-      return e.response;
-    } else {
-      return {
-        status: null,
-        message: '서버에 연결할 수 없습니다.',
-      };
-    }
-  }
+): Promise<ApiResponse<JoinGameRoomResponse>> => {
+  const response = await defaultInstance.post(`/users/${roomPW}`, studentInfo);
+  return response.data;
 };
 
 export const leaveGameRoom = async (roomPW: string) => {

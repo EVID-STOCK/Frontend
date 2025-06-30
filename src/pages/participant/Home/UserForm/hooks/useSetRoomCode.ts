@@ -1,4 +1,3 @@
-import { joinGameRoom } from '@apis/api/game';
 import { useSocket } from '@contexts/SocketContext';
 import { roomCodeState as persistRoomCodeState } from '@states/host/roomSetState';
 import { roomCodeCompareState, roomCodeState } from '../states/roomCodeState';
@@ -8,12 +7,19 @@ import { useRecoilState } from 'recoil';
 import { selectedProfileState } from '../states/profileState';
 import { nameState } from '../states/nameState';
 import { useSwiper } from '../../contexts/SwiperContext';
+import { useJoinRoomQuery } from './useJoinRoomQuery';
 
 export default function useSetRoomCode() {
   const { slideNext, allowSlideNext } = useSwiper();
   const [roomCode, setRoomCode] = useRecoilState(roomCodeState);
   const [name] = useRecoilState(nameState);
   const [selectedProfile] = useRecoilState(selectedProfileState);
+  const {
+    mutate: joinRoomMutate,
+    isSuccess,
+    isError,
+    error,
+  } = useJoinRoomQuery();
 
   const [persistRoomCode, setPersistRoomCode] =
     useRecoilState(persistRoomCodeState);
@@ -63,21 +69,34 @@ export default function useSetRoomCode() {
     }
     setRoomCode((prev) => ({ ...prev, state: true }));
     setTimeout(async () => {
-      // 일치하는 방을 찾고 유저를 해당 방에 참여시킴.
-      const result = await joinGameRoom(roomCode.value, {
-        userName: name.value,
-        profileNum: selectedProfile,
+      joinRoomMutate({
+        roomPW: roomCode.value,
+        studentInfo: {
+          userName: name.value,
+          profileNum: selectedProfile,
+        },
       });
-
-      if (result.status === 200) {
-        await handleSuccessParticipate();
-      } else if (result.status === 404) {
-        handleWrongRoomCode();
-      } else {
-        handleFailParticipate();
-      }
     }, 1000);
   };
+
+  useEffect(() => {
+    if (!isSuccess) return;
+
+    (async () => {
+      await handleSuccessParticipate();
+    })();
+  }, [isSuccess, isConnect]);
+
+  useEffect(() => {
+    if (!isError) return;
+
+    const status = error?.response?.status;
+    if (status === 404) {
+      handleWrongRoomCode();
+    } else {
+      handleFailParticipate();
+    }
+  }, [isError, error]);
 
   useEffect(() => {
     if (persistRoomCode) return;
