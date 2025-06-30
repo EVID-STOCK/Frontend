@@ -29,6 +29,16 @@ export interface UpdateNextRoundResponse {
 
 export interface SaveGameResultsResponse {}
 
+export interface GameResult {
+  name: string;
+  profile_num: number;
+  total_price: number;
+  total_roi: number;
+  rank: number;
+}
+
+export type FetchGameResultsResponse = GameResult[];
+
 export interface Participant {
   isHost: boolean;
   profileNum: 0 | 1 | 2;

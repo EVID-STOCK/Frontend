@@ -5,6 +5,7 @@ import { ApiResponse } from '@apis/types/api.types';
 import {
   CreateGameRoomResponse,
   DeleteGameRoomResponse,
+  FetchGameResultsResponse,
   FetchRoomSettingsResponse,
   JoinGameRoomResponse,
   LeaveGameRoomResponse,
@@ -77,25 +78,11 @@ export const fetchGameResults = async (
   roomPW: string,
   round: number,
   opt: number
-) => {
-  try {
-    const { data, status } = await defaultInstance.get(
-      `/games/${roomPW}/result`,
-      {
-        params: { round, opt },
-      }
-    );
-    return { data, status };
-  } catch (e: any) {
-    if (e.response) {
-      return e.response.data;
-    } else {
-      return {
-        status: null,
-        message: '서버에 연결할 수 없습니다.',
-      };
-    }
-  }
+): Promise<ApiResponse<FetchGameResultsResponse>> => {
+  const response = await defaultInstance.get(`/games/${roomPW}/result`, {
+    params: { round, opt },
+  });
+  return response.data;
 };
 
 export const saveGameResults = async (

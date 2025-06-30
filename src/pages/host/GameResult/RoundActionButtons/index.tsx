@@ -1,18 +1,18 @@
 import ActionButton from '@components/ActionButton';
 import * as S from './styles';
 import { useNextRound } from './useNextRound';
-import { useGameResultQuery } from '../hooks/useGameResultQuery';
+import { useGetGameResultsQuery } from '../hooks/useGetGameResultsQuery';
 
 const HEADERS = ['순위', '프로필', '이름', '총 자산', '수익률'];
 
 export default function RoundActionButtons() {
-  const { results } = useGameResultQuery();
+  const { data: gameResultsData } = useGetGameResultsQuery();
   const { goNextRound } = useNextRound();
 
   return (
     <S.ActionButtonWrapper>
       <S.StyledCsvDownloadButton
-        data={results}
+        data={gameResultsData?.data || []}
         filename="게임 결과.csv"
         delimiter=","
         headers={HEADERS}

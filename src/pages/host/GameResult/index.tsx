@@ -3,11 +3,11 @@ import ListLayout from '@components/ListLayout';
 import * as S from './styles';
 import RoundActionButtons from './RoundActionButtons';
 import ResultOptions from './ResultOptions';
-import { useGameResultQuery } from './hooks/useGameResultQuery';
 import RankingTable from './components/RankingTable';
+import { useGetGameResultsQuery } from './hooks/useGetGameResultsQuery';
 
 export default function GameResultPage() {
-  const { results } = useGameResultQuery();
+  const { data: gameResultsData } = useGetGameResultsQuery();
 
   return (
     <S.GameResultContainer>
@@ -15,7 +15,7 @@ export default function GameResultPage() {
       <S.WaitingRoomList>
         <ListLayout title="결과 조회" src="/icons/result-icon.svg">
           <ResultOptions />
-          <RankingTable results={results} />
+          <RankingTable results={gameResultsData?.data || []} />
         </ListLayout>
         <RoundActionButtons />
       </S.WaitingRoomList>
