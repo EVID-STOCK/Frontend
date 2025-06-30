@@ -8,6 +8,7 @@ import {
 import { selectedCompanyStockState } from '@states/participant/modalState';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { useSwiper } from '../../contexts/SwiperContext';
+import { useLeaveRoomQuery } from './useLeaveRoomQuery';
 
 export default function useRoomLeave({
   showToastMessage,
@@ -26,6 +27,8 @@ export default function useRoomLeave({
   const resetRoomSet = useResetRecoilState(roomSetState);
   const resetCurrentRound = useResetRecoilState(currentRoundState);
 
+  const { mutate: leaveRoomMutate, isSuccess, isError } = useLeaveRoomQuery();
+
   const initialRoomState = () => {
     resetSelectedCompanyStockState();
     resetRoomSet();
@@ -35,12 +38,7 @@ export default function useRoomLeave({
   const leaveRoom = async () => {
     if (!isConnect) return;
     if (roomCode) {
-      const result = await leaveGameRoom(roomCode);
-      if (result.status !== 200) {
-        console.error('오류 발생. 게임방에서 나가지 못했습니다.');
-        return;
-      }
-      sendMessage(`/app/room`, { data: { roomCode }, type: 'ROOM_LEAVE' });
+      leaveRoomMutate({ roomPW: roomCode });
     }
     initialRoomState();
   };

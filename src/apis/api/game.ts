@@ -7,6 +7,7 @@ import {
   DeleteGameRoomResponse,
   FetchRoomSettingsResponse,
   JoinGameRoomResponse,
+  LeaveGameRoomResponse,
   ParticipantListResponse,
   StudentInfo,
   UpdateRoomSettingsResponse,
@@ -56,20 +57,11 @@ export const joinGameRoom = async (
   return response.data;
 };
 
-export const leaveGameRoom = async (roomPW: string) => {
-  try {
-    const { data, status } = await defaultInstance.delete(`/users/${roomPW}`);
-    return { data, status };
-  } catch (e: any) {
-    if (e.response) {
-      return e.response.data;
-    } else {
-      return {
-        status: null,
-        message: '서버에 연결할 수 없습니다.',
-      };
-    }
-  }
+export const leaveGameRoom = async (
+  roomPW: string
+): Promise<ApiResponse<LeaveGameRoomResponse>> => {
+  const response = await defaultInstance.delete(`/users/${roomPW}`);
+  return response.data;
 };
 
 export const updateNextRound = async (roomPW: string) => {
