@@ -3,6 +3,14 @@ export interface CreateGameRoomResponse {
 }
 export interface UpdateRoomSettingsResponse {}
 
+export interface FetchRoomSettingsResponse {
+  roundNum: number;
+  seed: number;
+  timeLimit: number;
+  curr_round: number;
+  status: 'WAITING' | 'IN_PROGRESS' | 'LOADING' | 'FINISHED';
+}
+
 export interface Participant {
   isHost: boolean;
   profileNum: 0 | 1 | 2;

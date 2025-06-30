@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { roomCodeState } from '@states/host/roomSetState';
-import { fetchRoomSettings } from '@apis/api/game';
 import { Context } from 'chartjs-plugin-datalabels';
 import useGetStockGraphQuery from './useGetStockGraphQuery';
+import useGetRoomSettingsQuery from './useGetRoomSettingsQuery';
 
 export default function useStockChart() {
   const chartRef = useRef(null);
   const [seconds, setSeconds] = useState(0);
-  const persistRoomCode = useRecoilValue(roomCodeState);
   const { data: stockGraphData = [], isLoading } = useGetStockGraphQuery();
   const isHavaStockGraphData = stockGraphData.length > 0;
+  const { data: roomSettingData } = useGetRoomSettingsQuery();
 
   const splitTime = (seconds: number) => {
     const timeList = [];
@@ -128,15 +126,11 @@ export default function useStockChart() {
     ? Math.min(...stockGraphData).toLocaleString('ko')
     : 0;
 
-  const getRoomInfo = async () => {
-    if (!persistRoomCode) return;
-    const { data: roomData } = await fetchRoomSettings(persistRoomCode);
-    setSeconds(roomData.data.timeLimit);
-  };
-
   useEffect(() => {
-    getRoomInfo();
-  }, []);
+    if (roomSettingData?.data?.timeLimit) {
+      setSeconds(roomSettingData?.data?.timeLimit ?? 0);
+    }
+  }, [roomSettingData?.data?.timeLimit]);
 
   return {
     chartRef,

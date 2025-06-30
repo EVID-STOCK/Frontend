@@ -4,6 +4,7 @@ import { defaultInstance } from '../utils/instance';
 import { ApiResponse } from '@apis/types/api.types';
 import {
   CreateGameRoomResponse,
+  FetchRoomSettingsResponse,
   ParticipantListResponse,
   UpdateRoomSettingsResponse,
 } from '@apis/types/game.types';
@@ -23,22 +24,11 @@ export const updateRoomSettings = async (
   return response.data;
 };
 
-export const fetchRoomSettings = async (roomPW: string) => {
-  try {
-    const { data, status } = await defaultInstance.get(
-      `/rooms/${roomPW}/setting`
-    );
-    return { data, status };
-  } catch (e: any) {
-    if (e.response) {
-      return e.response.data;
-    } else {
-      return {
-        status: null,
-        message: '서버에 연결할 수 없습니다.',
-      };
-    }
-  }
+export const fetchRoomSettings = async (
+  roomPW: string
+): Promise<ApiResponse<FetchRoomSettingsResponse>> => {
+  const response = await defaultInstance.get(`/rooms/${roomPW}/setting`);
+  return response.data;
 };
 
 export const fetchParticipants = async (
