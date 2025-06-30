@@ -22,6 +22,11 @@ export interface JoinGameRoomResponse {}
 
 export interface LeaveGameRoomResponse {}
 
+export interface UpdateNextRoundResponse {
+  state: string;
+  message: string;
+}
+
 export interface Participant {
   isHost: boolean;
   profileNum: 0 | 1 | 2;

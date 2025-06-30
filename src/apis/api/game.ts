@@ -10,6 +10,7 @@ import {
   LeaveGameRoomResponse,
   ParticipantListResponse,
   StudentInfo,
+  UpdateNextRoundResponse,
   UpdateRoomSettingsResponse,
 } from '@apis/types/game.types';
 
@@ -64,20 +65,11 @@ export const leaveGameRoom = async (
   return response.data;
 };
 
-export const updateNextRound = async (roomPW: string) => {
-  try {
-    const { data, status } = await defaultInstance.put(`/games/${roomPW}/next`);
-    return { data, status };
-  } catch (e: any) {
-    if (e.response) {
-      return e.response.data;
-    } else {
-      return {
-        status: null,
-        message: '서버에 연결할 수 없습니다.',
-      };
-    }
-  }
+export const updateNextRound = async (
+  roomPW: string
+): Promise<ApiResponse<UpdateNextRoundResponse>> => {
+  const response = await defaultInstance.put(`/games/${roomPW}/next`);
+  return response.data;
 };
 
 export const fetchGameResults = async (

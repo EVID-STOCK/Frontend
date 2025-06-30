@@ -1,7 +1,8 @@
-import { updateNextRound } from '@apis/api/game';
 import { useSocket } from '@contexts/SocketContext';
+import { useUpdateNextRoundQuery } from '@hooks/queries/useUpdateNextRoundQuery';
 import useModalState from '@hooks/useModalState';
-import { imageAlert, networkErrorAlert } from '@utils/customAlert';
+import { imageAlert } from '@utils/customAlert';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Timer } from 'types/room';
 
@@ -14,6 +15,11 @@ export function useRoundEnd(
   const navigate = useNavigate();
   const { openModal, closeModal } = useModalState();
   const { sendMessage } = useSocket();
+  const {
+    mutate: updateNextRoundMutate,
+    isSuccess,
+    data: updateNextRoundData,
+  } = useUpdateNextRoundQuery();
 
   const handleGoToResult = () => {
     navigate('/host/room/result', {
@@ -42,17 +48,18 @@ export function useRoundEnd(
   };
 
   const handleNextRound = async () => {
-    const result = await updateNextRound(state.roomPW);
-    if (result.status === 200) {
-      if (result.data.data.state === 'next') {
-        startNextRound();
-      } else {
-        handleAllRoundsEnd();
-      }
-    } else if (result.status === 500) {
-      networkErrorAlert();
-    }
+    updateNextRoundMutate(state.roomPW);
   };
+
+  useEffect(() => {
+    if (!isSuccess) return;
+
+    if (updateNextRoundData.data.state === 'next') {
+      startNextRound();
+    } else {
+      handleAllRoundsEnd();
+    }
+  }, [isSuccess]);
 
   return {
     handleGoToResult,
