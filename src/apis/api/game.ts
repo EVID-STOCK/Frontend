@@ -9,6 +9,7 @@ import {
   JoinGameRoomResponse,
   LeaveGameRoomResponse,
   ParticipantListResponse,
+  SaveGameResultsResponse,
   StudentInfo,
   UpdateNextRoundResponse,
   UpdateRoomSettingsResponse,
@@ -100,21 +101,7 @@ export const fetchGameResults = async (
 export const saveGameResults = async (
   roomPW: string,
   round: { round_num: number }
-) => {
-  try {
-    const { data, status } = await defaultInstance.post(
-      `/games/${roomPW}/result`,
-      round
-    );
-    return { data, status };
-  } catch (e: any) {
-    if (e.response) {
-      return e.response.data;
-    } else {
-      return {
-        status: null,
-        message: '서버에 연결할 수 없습니다.',
-      };
-    }
-  }
+): Promise<ApiResponse<SaveGameResultsResponse>> => {
+  const response = await defaultInstance.post(`/games/${roomPW}/result`, round);
+  return response.data;
 };

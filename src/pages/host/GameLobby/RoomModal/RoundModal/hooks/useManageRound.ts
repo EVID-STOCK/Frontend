@@ -4,10 +4,9 @@ import convertSecondsToMinute from '@utils/convertSecondsToMinute';
 import { useLocation } from 'react-router-dom';
 import { currentRoundState } from '@states/host/roomSetState';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { saveGameResults } from '@apis/api/game';
-import { networkErrorAlert } from '@utils/customAlert';
 import useModalState from '@hooks/useModalState';
 import { useSocket } from '@contexts/SocketContext';
+import { useSaveRoomResultsQuery } from './useSaveGameResultsQuery';
 
 export const useManageRound = () => {
   const { state } = useLocation();
@@ -17,6 +16,7 @@ export const useManageRound = () => {
   const setRound = useSetRecoilState(currentRoundState);
   const { openModal, state: modalState } = useModalState();
   const round = useRecoilValue(currentRoundState); // 현재 라운드
+  const { mutate: saveGameResultsMutate } = useSaveRoomResultsQuery();
 
   // 게임 결과 저장하기
   const saveGameResult = async (currentRound: number) => {
@@ -31,14 +31,12 @@ export const useManageRound = () => {
     //   }, 1000);
     //   return;
     // }
-    const result = await saveGameResults(state.roomPW, {
-      round_num: currentRound,
+    saveGameResultsMutate({
+      roomPW: state.roomPW,
+      round: {
+        round_num: currentRound,
+      },
     });
-    if (result.status === 200) {
-      return;
-    } else {
-      networkErrorAlert();
-    }
   };
 
   useEffect(() => {

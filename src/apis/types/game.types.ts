@@ -27,6 +27,8 @@ export interface UpdateNextRoundResponse {
   message: string;
 }
 
+export interface SaveGameResultsResponse {}
+
 export interface Participant {
   isHost: boolean;
   profileNum: 0 | 1 | 2;
