@@ -4,6 +4,7 @@ import { defaultInstance } from '../utils/instance';
 import { ApiResponse } from '@apis/types/api.types';
 import {
   CreateGameRoomResponse,
+  DeleteGameRoomResponse,
   FetchRoomSettingsResponse,
   ParticipantListResponse,
   UpdateRoomSettingsResponse,
@@ -38,20 +39,11 @@ export const fetchParticipants = async (
   return response.data;
 };
 
-export const deleteGameRoom = async (roomPW: string) => {
-  try {
-    const { data, status } = await defaultInstance.delete(`/rooms/${roomPW}`);
-    return { data, status };
-  } catch (e: any) {
-    if (e.response) {
-      return e.response.data;
-    } else {
-      return {
-        status: null,
-        message: '서버에 연결할 수 없습니다.',
-      };
-    }
-  }
+export const deleteGameRoom = async (
+  roomPW: string
+): Promise<ApiResponse<DeleteGameRoomResponse>> => {
+  const response = await defaultInstance.delete(`/rooms/${roomPW}`);
+  return response.data;
 };
 
 interface StudentInfo {

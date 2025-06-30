@@ -11,6 +11,8 @@ export interface FetchRoomSettingsResponse {
   status: 'WAITING' | 'IN_PROGRESS' | 'LOADING' | 'FINISHED';
 }
 
+export interface DeleteGameRoomResponse {}
+
 export interface Participant {
   isHost: boolean;
   profileNum: 0 | 1 | 2;
