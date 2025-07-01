@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RoomSet } from 'types/room';
 import { defaultInstance } from '../utils/instance';
 import { ApiResponse } from '@apis/types/api.types';
